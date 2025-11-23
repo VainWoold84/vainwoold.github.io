@@ -121,11 +121,10 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <div id="home" class="relative w-full h-[70vh] md:h-[85vh] font-sans overflow-hidden">
+    <div id="home" class="relative w-full h-[70vh] md:h-[85vh] font-sans flex flex-col justify-end overflow-hidden">
         
         <!-- Image de fond -->
         <div class="absolute inset-0 z-0">
-            <!-- Nom EXACT demandé : legorebuildimage.jpg -->
             <img src="legorebuildimage.jpg" 
                  onerror="this.src='https://img.youtube.com/vi/hWIOQXclbOk/maxresdefault.jpg'"
                  alt="Lego Rebuild Background" 
@@ -175,7 +174,7 @@
         </div>
     </div>
 
-    <!-- VIDEOS SECTION -->
+    <!-- VIDEOS SECTION (Latest Episodes) -->
     <div id="videos" class="relative w-full bg-[#0f0f0f] py-12 md:py-16">
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2 pl-2" data-key="section_videos">
@@ -242,6 +241,70 @@
                     </div>
                     <div class="text-center">
                         <h4 class="font-bold text-neutral-400 text-sm group-hover:text-white transition-colors" data-key="btn_view_more">View All Videos</h4>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- OTHER VIDEOS SECTION (New Category) -->
+    <div id="other-videos" class="relative w-full bg-[#0f0f0f] pb-12 md:pb-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2 pl-2" data-key="section_other_videos">
+                Other Videos
+            </h3>
+            
+            <div class="flex gap-4 md:gap-6 overflow-x-auto py-8 px-4 scrollbar-hide snap-x -mx-4">
+                
+                <!-- Card 1: Fan Music -->
+                <a href="https://youtu.be/F2isQtE7mXY" target="_blank" class="snap-start video-card w-72 md:w-80 shrink-0 group">
+                    <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
+                        <img src="https://img.youtube.com/vi/F2isQtE7mXY/maxresdefault.jpg" class="h-full w-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-white text-white"></i></div>
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-bold text-white">01:01</div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm md:text-base leading-tight mb-1 group-hover:text-green-400 transition-colors">You don't have to be the Bad Guy...</h4>
+                        <div class="flex items-center gap-1.5 text-xs text-neutral-400">
+                            <i data-lucide="eye" class="w-3 h-3"></i> 576 Views
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2: Sandwich Effect -->
+                <a href="https://youtu.be/9QlmenCGLFg" target="_blank" class="snap-start video-card w-72 md:w-80 shrink-0 group">
+                    <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
+                        <img src="https://img.youtube.com/vi/9QlmenCGLFg/maxresdefault.jpg" class="h-full w-full object-cover">
+                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-white text-white"></i></div>
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-bold text-white">02:01</div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm md:text-base leading-tight mb-1 group-hover:text-purple-400 transition-colors">The SANDWICH EFFECT</h4>
+                        <div class="flex items-center gap-1.5 text-xs text-neutral-400">
+                            <i data-lucide="eye" class="w-3 h-3"></i> 102 Views
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 3: Live Stream -->
+                <a href="https://www.youtube.com/live/Ua7kXDIff_g?si=p4fEl0RSZWkHP-hE" target="_blank" class="snap-start video-card w-72 md:w-80 shrink-0 group">
+                    <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
+                        <img src="https://img.youtube.com/vi/Ua7kXDIff_g/maxresdefault.jpg" class="h-full w-full object-cover">
+                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-white text-white"></i></div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-red-600 px-1.5 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wider">LIVE REPLAY</div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm md:text-base leading-tight mb-1 group-hover:text-red-500 transition-colors">Live Stream Replay</h4>
+                        <div class="flex items-center gap-1.5 text-xs text-neutral-400">
+                            <i data-lucide="eye" class="w-3 h-3"></i> VainWoold Live
+                        </div>
                     </div>
                 </a>
 
@@ -419,7 +482,9 @@
                 tag_lego: "Lego Animation", tag_3d: "3D Animation",
                 hero_desc: "Emmet and Rex are back in <strong>LEGO REBUILD</strong>! An adventure across different LEGO universes awaits them: Ninjago, Star Wars, and many more! But a mysterious character emerges... <em>Who is he?</em>",
                 btn_watch: "WATCH NOW", btn_trailer: "Watch Trailer",
-                section_videos: "Latest Episodes", btn_view_more: "View All Videos",
+                section_videos: "Latest Episodes", 
+                section_other_videos: "Other Videos", /* NEW KEY */
+                btn_view_more: "View All Videos",
                 section_stats: "Community Stats", stat_subs: "Subscribers", stat_views: "Views", stat_followers: "Followers", stat_members: "Members", btn_join: "Join Server",
                 bio_title: "About Me", 
                 bio_p1: "Hi, I'm <strong>VainWoold</strong>. I'm a 16-year-old French student with a burning passion for storytelling through digital art.",
@@ -436,7 +501,9 @@
                 tag_lego: "Animation Lego", tag_3d: "Animation 3D",
                 hero_desc: "Emmet et Rex sont de retour dans <strong>LEGO REBUILD</strong> ! Une aventure à travers différents univers LEGO les attend : Ninjago, Star Wars, et bien d'autres ! Mais un personnage mystérieux émerge... <em>Qui est-il ?</em>",
                 btn_watch: "REGARDER", btn_trailer: "Voir le Trailer",
-                section_videos: "Derniers Épisodes", btn_view_more: "Voir toutes les vidéos",
+                section_videos: "Derniers Épisodes", 
+                section_other_videos: "Autres Vidéos", /* NEW KEY */
+                btn_view_more: "Voir toutes les vidéos",
                 section_stats: "Statistiques", stat_subs: "Abonnés", stat_views: "Vues", stat_followers: "Abonnés", stat_members: "Membres", btn_join: "Rejoindre",
                 bio_title: "À propos de moi", 
                 bio_p1: "Salut, c'est <strong>VainWoold</strong>. J'ai 16 ans et je suis passionné par la création d'histoires via l'art numérique.",
