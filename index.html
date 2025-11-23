@@ -178,7 +178,7 @@
         </div>
     </div>
 
-    <!-- VIDEOS SECTION (Latest Episodes) -->
+    <!-- VIDEOS SECTION -->
     <div id="videos" class="relative w-full bg-[#0f0f0f] py-12 md:py-16">
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2 pl-2" data-key="section_videos">
@@ -252,7 +252,7 @@
         </div>
     </div>
 
-    <!-- OTHER VIDEOS SECTION (New Category) -->
+    <!-- OTHER VIDEOS SECTION -->
     <div id="other-videos" class="relative w-full bg-[#0f0f0f] pb-12 md:pb-16">
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2 pl-2" data-key="section_other_videos">
@@ -384,17 +384,17 @@
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT SECTION (Updated Text + Timeline) -->
     <section id="about" class="py-20 px-6 bg-[#0a0a0a]">
         <div class="max-w-5xl mx-auto">
-             <div class="relative overflow-hidden rounded-3xl border border-white/5 bg-neutral-900/40 p-8 md:p-12">
+             <div class="relative overflow-hidden rounded-3xl border border-white/5 bg-neutral-900/40 p-8 md:p-12 mb-12">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="md:col-span-2 space-y-6">
                         <h2 class="text-3xl font-heading font-bold mb-6 text-white" data-key="bio_title">About Me</h2>
                         <div class="space-y-4 text-neutral-400 leading-relaxed text-sm md:text-base">
-                            <p data-key="bio_p1">Hi, I'm <strong>VainWoold</strong>. I'm a 16-year-old French student with a burning passion for storytelling through digital art.</p>
-                            <p data-key="bio_p2">My journey started just a year ago. Balancing high school studies with late-night Blender sessions, I taught myself the intricacies of 3D modeling and the patience required for Stop Motion animation.</p>
-                            <p data-key="bio_p3">I don't just move pixels; I try to evoke emotion. My goal is to turn this hobby into a professional career in the animation industry.</p>
+                            <!-- New Bio Text -->
+                            <p data-key="bio_p1">My name is VainWoold and I am 16 years old. A high school student in the general stream, I dream of becoming a director. Cinema, animation, AI, design, video games, and many other fields fascinate me.</p>
+                            <p data-key="bio_p2">I started 3D animation in 2025 and continue to learn every day. I also practice stop motion, photography, graphic design, and a multitude of other disciplines. Ambitious and determined, I see through everything I undertake.</p>
                         </div>
                     </div>
 
@@ -412,6 +412,95 @@
                     </div>
                 </div>
              </div>
+
+             <!-- NEW CHART TIMELINE SECTION (Replacment) -->
+             <div class="relative w-full h-[300px] mt-16 bg-white/5 rounded-3xl border border-white/10 p-6 overflow-hidden">
+                <!-- Title inside graph -->
+                <div class="absolute top-6 left-6 z-10">
+                    <h3 class="text-xl font-bold text-white" data-key="timeline_title">My Journey</h3>
+                    <p class="text-xs text-neutral-400">Progression & Milestones</p>
+                </div>
+
+                <!-- Grid Lines (Background) -->
+                <div class="absolute inset-0 flex flex-col justify-between p-6 pt-20 pb-12 opacity-10 pointer-events-none">
+                    <div class="w-full h-px bg-white"></div>
+                    <div class="w-full h-px bg-white"></div>
+                    <div class="w-full h-px bg-white"></div>
+                    <div class="w-full h-px bg-white"></div>
+                </div>
+
+                <!-- The Graph Line (SVG) -->
+                <svg class="absolute inset-0 w-full h-full pt-20 pb-12 px-6 overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
+                    <!-- Gradient Defs -->
+                    <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#4285F4;stop-opacity:1" /> <!-- Blue -->
+                            <stop offset="50%" style="stop-color:#DB4437;stop-opacity:1" /> <!-- Red -->
+                            <stop offset="100%" style="stop-color:#0F9D58;stop-opacity:1" /> <!-- Green -->
+                        </linearGradient>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Path Curve -->
+                    <path d="M0,75 L 15,75 C 25,75 35,38 50,38 C 65,38 75,58 90,58 L 100,58" 
+                          fill="none" 
+                          stroke="url(#lineGradient)" 
+                          stroke-width="1.5"
+                          filter="url(#glow)"
+                          vector-effect="non-scaling-stroke" />
+                    <!-- Area Fill -->
+                    <path d="M0,75 L 15,75 C 25,75 35,38 50,38 C 65,38 75,58 90,58 L 100,58 V 100 H 0 Z" 
+                          fill="url(#lineGradient)" 
+                          fill-opacity="0.1" 
+                          stroke="none" />
+                </svg>
+
+                <!-- Interactive Points -->
+                
+                <!-- Point 1: Dec 31, 2024 -->
+                <div class="absolute left-[15%] group cursor-pointer" style="top: 61%;"> <!-- Manually adjusted top to fit visual curve -->
+                     <div class="w-4 h-4 rounded-full bg-[#4285F4] shadow-[0_0_15px_#4285F4] relative z-20 transition-transform group-hover:scale-150 ring-2 ring-white transform -translate-x-1/2 -translate-y-1/2"></div>
+                    <!-- Tooltip -->
+                    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-48 bg-[#1a1a1a] border border-[#4285F4]/30 rounded-xl p-3 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 transform group-hover:-translate-y-2">
+                        <div class="text-[#4285F4] text-xs font-bold mb-1" data-key="date_1">Dec 31, 2024</div>
+                        <div class="text-white text-sm font-bold leading-tight" data-key="event_1">YouTube Channel Creation</div>
+                    </div>
+                    <!-- Vertical Line -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-[#4285F4] to-transparent opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                </div>
+
+                <!-- Point 2: Apr 12, 2025 -->
+                <div class="absolute left-[50%] group cursor-pointer" style="top: 41%;"> <!-- Manually adjusted top -->
+                    <div class="w-4 h-4 rounded-full bg-[#DB4437] shadow-[0_0_15px_#DB4437] relative z-20 transition-transform group-hover:scale-150 ring-2 ring-white transform -translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-48 bg-[#1a1a1a] border border-[#DB4437]/30 rounded-xl p-3 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 transform group-hover:-translate-y-2">
+                        <div class="text-[#DB4437] text-xs font-bold mb-1" data-key="date_2">Apr 12, 2025</div>
+                        <div class="text-white text-sm font-bold leading-tight" data-key="event_2">Release of "Lego Rebuild"</div>
+                    </div>
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-40 bg-gradient-to-b from-[#DB4437] to-transparent opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                </div>
+
+                <!-- Point 3: Today -->
+                <div class="absolute left-[90%] group cursor-pointer" style="top: 51%;"> <!-- Manually adjusted top -->
+                    <div class="w-4 h-4 rounded-full bg-[#0F9D58] shadow-[0_0_15px_#0F9D58] relative z-20 transition-transform group-hover:scale-150 ring-2 ring-white transform -translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="absolute bottom-8 right-0 w-48 bg-[#1a1a1a] border border-[#0F9D58]/30 rounded-xl p-3 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 transform group-hover:-translate-y-2">
+                        <div class="text-[#0F9D58] text-xs font-bold mb-1" data-key="date_3">Today</div>
+                        <div class="text-white text-sm font-bold leading-tight" data-key="event_3">1 Year of Passion</div>
+                    </div>
+                     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-[#0F9D58] to-transparent opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                </div>
+
+                <!-- X Axis Labels -->
+                <div class="absolute bottom-4 left-0 w-full px-6 flex justify-between text-[10px] font-mono text-neutral-500 uppercase tracking-widest pl-[15%] pr-[10%]">
+                    <span>Dec '24</span>
+                    <span>Apr '25</span>
+                    <span>Now</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -487,13 +576,16 @@
                 hero_desc: "Emmet and Rex are back in <strong>LEGO REBUILD</strong>! An adventure across different LEGO universes awaits them: Ninjago, Star Wars, and many more! But a mysterious character emerges... <em>Who is he?</em>",
                 btn_watch: "WATCH NOW", btn_trailer: "Watch Trailer",
                 section_videos: "Latest Episodes", 
-                section_other_videos: "Other Videos", /* NEW KEY */
+                section_other_videos: "Other Videos",
                 btn_view_more: "View All Videos",
                 section_stats: "Community Stats", stat_subs: "Subscribers", stat_views: "Views", stat_followers: "Followers", stat_members: "Members", btn_join: "Join Server",
                 bio_title: "About Me", 
-                bio_p1: "Hi, I'm <strong>VainWoold</strong>. I'm a 16-year-old French student with a burning passion for storytelling through digital art.",
-                bio_p2: "My journey started just a year ago. Balancing high school studies with late-night Blender sessions, I taught myself the intricacies of 3D modeling and the patience required for Stop Motion animation.",
-                bio_p3: "I don't just move pixels; I try to evoke emotion. My goal is to turn this hobby into a professional career in the animation industry.",
+                bio_p1: "My name is VainWoold and I am 16 years old. A high school student in the general stream, I dream of becoming a director. Cinema, animation, AI, design, video games, and many other fields fascinate me.",
+                bio_p2: "I started 3D animation in 2025 and continue to learn every day. I also practice stop motion, photography, graphic design, and a multitude of other disciplines. Ambitious and determined, I see through everything I undertake.",
+                timeline_title: "My Journey",
+                date_1: "Dec 31, 2024", event_1: "YouTube Channel Creation",
+                date_2: "Apr 12, 2025", event_2: "Release of \"Lego Rebuild\"",
+                date_3: "Today", event_3: "1 Year of Passion & Creation",
                 skills_title: "Skills",
                 skill_3d: "3D Animator", skill_stopmo: "Stop Motion", skill_writer: "Screenwriter", skill_photo: "Photographer", skill_web: "Web Designer", skill_more: "And more...",
                 footer_tagline: "Coded with HTML, Tailwind CSS & JS. Hosted on GitHub.",
@@ -506,13 +598,16 @@
                 hero_desc: "Emmet et Rex sont de retour dans <strong>LEGO REBUILD</strong> ! Une aventure à travers différents univers LEGO les attend : Ninjago, Star Wars, et bien d'autres ! Mais un personnage mystérieux émerge... <em>Qui est-il ?</em>",
                 btn_watch: "REGARDER", btn_trailer: "Voir le Trailer",
                 section_videos: "Derniers Épisodes", 
-                section_other_videos: "Autres Vidéos", /* NEW KEY */
+                section_other_videos: "Autres Vidéos",
                 btn_view_more: "Voir toutes les vidéos",
                 section_stats: "Statistiques", stat_subs: "Abonnés", stat_views: "Vues", stat_followers: "Abonnés", stat_members: "Membres", btn_join: "Rejoindre",
                 bio_title: "À propos de moi", 
-                bio_p1: "Salut, c'est <strong>VainWoold</strong>. J'ai 16 ans et je suis passionné par la création d'histoires via l'art numérique.",
-                bio_p2: "Mon aventure a commencé il y a un an. Jonglant entre le lycée et des sessions nocturnes sur Blender, j'apprends en autodidacte la 3D et la patience du Stop Motion.",
-                bio_p3: "Je ne fais pas que bouger des pixels ; j'essaie d'évoquer des émotions. Mon but est de transformer cette passion en carrière dans l'animation.",
+                bio_p1: "Je m’appelle VainWoold et j’ai 16 ans. Lycéen en filière générale, je rêve de devenir réalisateur. Le cinéma, l’animation, l’IA, le design, les jeux vidéos, et bien d’autres domaines me passionnent.",
+                bio_p2: "Je me suis lancé dans l’animation 3D en 2025 et je continue d’apprendre chaque jour. Je pratique aussi le stop motion, la photographie, le graphisme et une multitude d’autres disciplines. Ambitieux et déterminé, je vais au bout de ce que j’entreprends.",
+                timeline_title: "Mon Parcours",
+                date_1: "31 Déc. 2024", event_1: "Création de la chaîne YouTube",
+                date_2: "12 Avr. 2025", event_2: "Sortie de \"Lego Rebuild\"",
+                date_3: "Aujourd'hui", event_3: "1 An de Passion & Création",
                 skills_title: "Compétences",
                 skill_3d: "Animateur 3D", skill_stopmo: "Stop Motion", skill_writer: "Scénariste", skill_photo: "Photographe", skill_web: "Web Designer", skill_more: "Et plus...",
                 footer_tagline: "Codé avec HTML, Tailwind CSS & JS. Hébergé sur GitHub.",
