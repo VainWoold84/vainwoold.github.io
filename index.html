@@ -90,7 +90,7 @@
 </head>
 <body class="antialiased selection:bg-white/20 selection:text-white bg-[#0f0f0f]">
 
-    <!-- Navbar (Recentré max-w-7xl) -->
+    <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass-nav h-16 md:h-20">
         <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
             <!-- Logo -->
@@ -120,12 +120,12 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION (Hauteur Limitée + Contenu Recentré) -->
-    <div id="home" class="relative w-full h-[70vh] md:h-[85vh] font-sans flex flex-col justify-end overflow-hidden">
+    <!-- HERO SECTION -->
+    <div id="home" class="relative w-full h-[70vh] md:h-[85vh] font-sans overflow-hidden">
         
-        <!-- Image de fond (Corrected: legorebuildimage.jpg) -->
+        <!-- Image de fond -->
         <div class="absolute inset-0 z-0">
-            <!-- IMPORTANT: Nom de fichier corrigé selon ta demande -->
+            <!-- Nom EXACT demandé : legorebuildimage.jpg -->
             <img src="legorebuildimage.jpg" 
                  onerror="this.src='https://img.youtube.com/vi/hWIOQXclbOk/maxresdefault.jpg'"
                  alt="Lego Rebuild Background" 
@@ -135,9 +135,8 @@
             <div class="absolute inset-0 bg-gradient-to-r from-[#0f0f0f]/90 via-[#0f0f0f]/40 to-transparent"></div>
         </div>
 
-        <!-- Contenu DANS le Hero (Espacement augmenté pour décoller du header) -->
-        <!-- pt-44 md:pt-52 : Augmentation significative du padding top -->
-        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-12 md:pb-16 lg:pb-20 pt-44 md:pt-52 flex flex-col justify-end h-full">
+        <!-- Contenu DANS le Hero -->
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 h-full flex flex-col justify-center pt-32">
             <div class="max-w-4xl">
                 <!-- Tags -->
                 <div class="fade-up flex items-center gap-3 text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-neutral-300 mb-4">
@@ -183,8 +182,7 @@
                 Latest Episodes
             </h3>
             
-            <!-- py-10 conservé pour éviter le crop au zoom -->
-            <div class="flex gap-4 md:gap-6 overflow-x-auto py-10 px-2 scrollbar-hide snap-x -mx-2">
+            <div class="flex gap-4 md:gap-6 overflow-x-auto py-12 px-4 scrollbar-hide snap-x -mx-4">
                 
                 <!-- Card 1 -->
                 <a href="https://youtu.be/7nYbAI8WWjU" target="_blank" class="snap-start video-card w-72 md:w-80 shrink-0 group">
@@ -470,3 +468,4 @@
         document.head.insertAdjacentHTML("beforeend", `<style>[data-key] { transition: opacity 0.2s ease; }</style>`);
     </script>
 </body>
+</html>
