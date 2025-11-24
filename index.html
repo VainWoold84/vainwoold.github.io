@@ -6,9 +6,13 @@
     <title>VainWoold | 3D & Stop Motion</title>
     <meta name="description" content="Portfolio of VainWoold - 16 y/o French 3D Artist, Stop Motion Animator & Beginner Graphic Designer.">
     
-    <!-- Favicon -->
+    <!-- Favicon Configuration Robuste -->
+    <!-- Pour la plupart des navigateurs -->
     <link rel="icon" type="image/jpeg" href="logovain.jpg">
+    <!-- Pour la compatibilité héritée -->
     <link rel="shortcut icon" type="image/jpeg" href="logovain.jpg">
+    <!-- Pour les appareils Apple/iOS (iPhone, iPad) -->
+    <link rel="apple-touch-icon" href="logovain.jpg">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -117,6 +121,12 @@
                     <i data-lucide="globe" class="w-4 h-4"></i>
                     <span id="current-lang">EN</span>
                 </button>
+                
+                <!-- BOUTON SHOP (Ajouté) -->
+                <a href="shop.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Shop">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </a>
+
                 <a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hidden sm:flex btn-tactile bg-white text-black px-5 py-2 text-sm font-bold items-center gap-2 rounded-full hover:bg-gray-200 transition-colors">
                     <span data-key="btn_sub">Subscribe</span>
                 </a>
@@ -528,6 +538,8 @@
                         <li><a href="#videos" class="hover:text-white transition-colors" data-key="nav_videos">Videos</a></li>
                         <li><a href="#stats" class="hover:text-white transition-colors" data-key="nav_stats">Stats</a></li>
                         <li><a href="#about" class="hover:text-white transition-colors" data-key="nav_about">About</a></li>
+                        <!-- LIEN SHOP (Ajouté) -->
+                        <li><a href="shop.html" class="hover:text-white transition-colors" data-key="nav_shop">Shop</a></li>
                     </ul>
                 </div>
 
@@ -570,7 +582,7 @@
 
         const translations = {
             en: { 
-                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About",
+                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About", nav_shop: "Shop",
                 btn_sub: "Subscribe",
                 tag_lego: "Lego Animation", tag_3d: "3D Animation",
                 hero_desc: "Emmet and Rex are back in <strong>LEGO REBUILD</strong>! An adventure across different LEGO universes awaits them: Ninjago, Star Wars, and many more! But a mysterious character emerges... <em>Who is he?</em>",
@@ -592,7 +604,7 @@
                 footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷"
             },
             fr: { 
-                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos",
+                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_shop: "Boutique",
                 btn_sub: "S'abonner",
                 tag_lego: "Animation Lego", tag_3d: "Animation 3D",
                 hero_desc: "Emmet et Rex sont de retour dans <strong>LEGO REBUILD</strong> ! Une aventure à travers différents univers LEGO les attend : Ninjago, Star Wars, et bien d'autres ! Mais un personnage mystérieux émerge... <em>Qui est-il ?</em>",
