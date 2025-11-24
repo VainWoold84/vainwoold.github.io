@@ -47,26 +47,80 @@
             transition: all 0.3s ease;
         }
 
-        /* --- Gemini Star Animation --- */
-        @keyframes sparkle-spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-        .gemini-star {
-            animation: sparkle-spin 4s linear infinite;
-        }
-
         /* --- Buttons --- */
         .btn-tactile {
             transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
         .btn-tactile:active { transform: scale(0.96); }
+
+        /* --- 3D Card Layout (New Design) --- */
+        .cards-container {
+            perspective: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            position: relative;
+        }
+
+        .card-3d {
+            position: absolute;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Positions initiales (style image ref) */
+        .card-left {
+            width: 280px;
+            height: 280px;
+            transform: translateX(-160px) scale(0.85) rotateY(15deg) rotateZ(-2deg);
+            z-index: 10;
+            opacity: 0.7;
+            filter: brightness(0.6);
+        }
+
+        .card-right {
+            width: 280px;
+            height: 280px;
+            transform: translateX(160px) scale(0.85) rotateY(-15deg) rotateZ(2deg);
+            z-index: 10;
+            opacity: 0.7;
+            filter: brightness(0.6);
+        }
+
+        .card-center {
+            width: 340px;
+            height: 340px;
+            transform: translateX(0) scale(1) rotateY(0);
+            z-index: 20;
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
+        }
+
+        /* Interaction au survol du conteneur */
+        .cards-container:hover .card-left {
+            transform: translateX(-220px) scale(0.9) rotateY(20deg);
+            opacity: 0.9;
+            filter: brightness(0.8);
+        }
+
+        .cards-container:hover .card-right {
+            transform: translateX(220px) scale(0.9) rotateY(-20deg);
+            opacity: 0.9;
+            filter: brightness(0.8);
+        }
+        
+        .cards-container:hover .card-center {
+            transform: scale(1.05);
+        }
+
     </style>
 </head>
 <body class="antialiased selection:bg-white/20 selection:text-white bg-[#0f0f0f]">
 
-    <!-- Navbar (Liens adaptés pour pointer vers index.html) -->
+    <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass-nav h-16 md:h-20">
         <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
             <!-- Logo -->
@@ -102,83 +156,98 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT: COMING SOON -->
-    <main class="flex-grow flex flex-col items-center justify-center pt-32 pb-20 px-6 relative overflow-hidden">
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow flex flex-col items-center justify-start pt-28 pb-20 px-6 relative overflow-hidden">
         
         <!-- Background Elements -->
         <div class="absolute inset-0 z-0 pointer-events-none">
-             <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]"></div>
-             <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]"></div>
+             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-600/5 rounded-full blur-[120px]"></div>
         </div>
 
         <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
             
-            <!-- Animated Gemini-like Star -->
-            <div class="mb-8 relative">
-                <div class="absolute inset-0 bg-white/20 blur-xl rounded-full"></div>
-                <svg class="w-16 h-16 md:w-20 md:h-20 gemini-star drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" fill="url(#starGradient)"/>
-                    <defs>
-                        <linearGradient id="starGradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#60A5FA" /> <!-- Blue -->
-                            <stop offset="50%" stop-color="#C084FC" /> <!-- Purple -->
-                            <stop offset="100%" stop-color="#F472B6" /> <!-- Pink -->
-                        </linearGradient>
-                    </defs>
+            <!-- Static Star Icon (No Animation) -->
+            <div class="mb-6 relative">
+                <svg class="w-10 h-10 text-white opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+                     <path d="M7 7H17M7 17H17" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.3"/>
                 </svg>
             </div>
 
-            <!-- Title -->
-            <h1 class="text-4xl md:text-6xl font-heading font-black text-center mb-4 tracking-tight">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-                    VainWoold Shop
-                </span>
-            </h1>
-            <p class="text-neutral-400 text-lg md:text-xl font-medium mb-16 tracking-widest uppercase">
-                <span data-key="coming_soon">Coming Soon</span> &bull; 2026
-            </p>
-
-            <!-- SKELETON LOADERS (Mock Products) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full opacity-60">
+            <!-- 3D CARD INTERACTIVE HERO -->
+            <div class="cards-container mb-12 w-full max-w-4xl">
                 
-                <!-- Skeleton Item 1 -->
-                <div class="space-y-4 animate-pulse">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent skew-x-12"></div>
+                <!-- Left Card (Mockup) -->
+                <div class="card-3d card-left bg-neutral-900">
+                     <img src="legorebuildimage.jpg" class="w-full h-full object-cover opacity-80" alt="Product Mockup 1">
+                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+
+                <!-- Right Card (Mockup) -->
+                <div class="card-3d card-right bg-neutral-900">
+                    <div class="w-full h-full bg-gradient-to-br from-purple-900 to-indigo-900 flex items-center justify-center">
+                        <i data-lucide="package" class="w-16 h-16 text-white/20"></i>
                     </div>
+                </div>
+
+                <!-- Center Card (Hero) -->
+                <div class="card-3d card-center bg-neutral-800">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 z-10"></div>
+                    <img src="logovain.jpg" class="w-full h-full object-cover" alt="Main Product">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-black/90 to-transparent">
+                        <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">New Collection</span>
+                        <h3 class="text-xl font-bold text-white mt-1">VainWoold Merch</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Title & CTA -->
+            <h1 class="text-4xl md:text-5xl font-heading font-bold text-center mb-4 tracking-tight text-white">
+                VainWoold Shop
+            </h1>
+            
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold rounded-full text-sm mt-2 cursor-not-allowed opacity-90">
+                <span data-key="coming_soon">Coming Soon</span>
+                <span class="w-1 h-1 bg-black rounded-full mx-1"></span>
+                <span>2026</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </div>
+
+
+            <!-- STATIC SKELETON LOADERS (No Pulse) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full opacity-40 mt-20">
+                
+                <!-- Static Item 1 -->
+                <div class="space-y-4">
+                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
                     <div class="space-y-2">
                         <div class="h-4 bg-neutral-800 rounded w-3/4"></div>
                         <div class="h-3 bg-neutral-800 rounded w-1/4"></div>
                     </div>
                 </div>
 
-                <!-- Skeleton Item 2 -->
-                <div class="space-y-4 animate-pulse" style="animation-delay: 0.2s;">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative overflow-hidden">
-                         <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent skew-x-12"></div>
-                    </div>
+                <!-- Static Item 2 -->
+                <div class="space-y-4">
+                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
                     <div class="space-y-2">
                         <div class="h-4 bg-neutral-800 rounded w-1/2"></div>
                         <div class="h-3 bg-neutral-800 rounded w-1/3"></div>
                     </div>
                 </div>
 
-                <!-- Skeleton Item 3 -->
-                <div class="space-y-4 animate-pulse" style="animation-delay: 0.4s;">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative overflow-hidden">
-                         <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent skew-x-12"></div>
-                    </div>
+                <!-- Static Item 3 -->
+                <div class="space-y-4">
+                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
                     <div class="space-y-2">
                         <div class="h-4 bg-neutral-800 rounded w-2/3"></div>
                         <div class="h-3 bg-neutral-800 rounded w-1/4"></div>
                     </div>
                 </div>
 
-                <!-- Skeleton Item 4 -->
-                <div class="space-y-4 animate-pulse" style="animation-delay: 0.6s;">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative overflow-hidden">
-                         <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent skew-x-12"></div>
-                    </div>
+                <!-- Static Item 4 -->
+                <div class="space-y-4">
+                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
                     <div class="space-y-2">
                         <div class="h-4 bg-neutral-800 rounded w-3/5"></div>
                         <div class="h-3 bg-neutral-800 rounded w-1/5"></div>
@@ -186,8 +255,6 @@
                 </div>
 
             </div>
-            
-            <p class="mt-12 text-xs text-neutral-500 font-mono text-center">Loading assets... [||||||....] 60%</p>
 
         </div>
     </main>
