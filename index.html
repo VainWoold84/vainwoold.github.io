@@ -7,11 +7,8 @@
     <meta name="description" content="Portfolio of VainWoold - 16 y/o French 3D Artist, Stop Motion Animator & Beginner Graphic Designer.">
     
     <!-- Favicon Configuration Robuste -->
-    <!-- Pour la plupart des navigateurs -->
     <link rel="icon" type="image/jpeg" href="logovain.jpg">
-    <!-- Pour la compatibilité héritée -->
     <link rel="shortcut icon" type="image/jpeg" href="logovain.jpg">
-    <!-- Pour les appareils Apple/iOS (iPhone, iPad) -->
     <link rel="apple-touch-icon" href="logovain.jpg">
 
     <!-- Tailwind CSS -->
@@ -94,6 +91,11 @@
             transform: translateY(-5px);
             border-color: rgba(255,255,255,0.1);
         }
+
+        /* --- Timeline Nodes Glow --- */
+        .timeline-node {
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 1), 0 0 15px rgba(59, 130, 246, 0.6);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-white/20 selection:text-white bg-[#0f0f0f]">
@@ -111,6 +113,7 @@
             <div class="hidden md:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
                 <a href="#home" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_home">Home</a>
                 <a href="#videos" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_videos">Videos</a>
+                <a href="#music" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_music">Music</a>
                 <a href="#stats" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_stats">Stats</a>
                 <a href="#about" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_about">About</a>
             </div>
@@ -122,7 +125,7 @@
                     <span id="current-lang">EN</span>
                 </button>
                 
-                <!-- BOUTON SHOP (Ajouté) -->
+                <!-- BOUTON SHOP -->
                 <a href="shop.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Shop">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
                 </a>
@@ -325,6 +328,86 @@
             </div>
         </div>
     </div>
+
+    <!-- NEW MUSIC SECTION -->
+    <section id="music" class="py-16 px-6 bg-[#0f0f0f] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-heading font-bold mb-10 text-center flex items-center justify-center gap-3">
+                <i data-lucide="music" class="w-6 h-6 text-white"></i>
+                <span data-key="section_music">Music Lounge</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- Track 1 (Blue Theme - Brick by Brick) -->
+                <div class="group relative bg-[#121212] border-2 border-white/10 rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:-rotate-1 hover:border-blue-500 overflow-hidden">
+                    
+                    <div class="relative z-10 flex flex-col h-full justify-between min-h-[140px]">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-1">Brick by Brick</h3>
+                            <p class="text-xs text-blue-400 font-mono uppercase tracking-wider">feat. Conlin Rei</p>
+                        </div>
+
+                        <div class="flex items-center gap-4 mt-6">
+                            <!-- Play Button -->
+                            <button class="play-btn w-12 h-12 shrink-0 rounded-full bg-white text-black flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg active:scale-95" data-audio-id="audio-1">
+                                <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
+                            </button>
+                            
+                            <!-- Progress Bar -->
+                            <div class="flex-1 w-full">
+                                <input type="range" class="w-full h-1 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:h-1.5 transition-all" value="0" min="0" max="100" id="progress-1">
+                                <div class="flex justify-between text-[10px] text-neutral-500 mt-1.5 font-mono">
+                                    <span id="time-1">0:00</span>
+                                    <span id="duration-1">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <audio id="audio-1" src="RaptorSample (1).mp3" preload="metadata"></audio>
+                </div>
+
+                <!-- Track 2 (Red Theme - Be a Hero) -->
+                <div class="group relative bg-[#121212] border-2 border-white/10 rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:rotate-1 hover:border-red-500 overflow-hidden">
+                    
+                    <div class="relative z-10 flex flex-col h-full justify-between min-h-[140px]">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-1">Be a Hero</h3>
+                            <p class="text-xs text-red-400 font-mono uppercase tracking-wider">feat. Conlin Rei</p>
+                        </div>
+
+                        <div class="flex items-center gap-4 mt-6">
+                            <button class="play-btn w-12 h-12 shrink-0 rounded-full bg-white text-black flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300 shadow-lg active:scale-95" data-audio-id="audio-2">
+                                <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
+                            </button>
+                            
+                            <div class="flex-1 w-full">
+                                <input type="range" class="w-full h-1 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-red-500 hover:h-1.5 transition-all" value="0" min="0" max="100" id="progress-2">
+                                <div class="flex justify-between text-[10px] text-neutral-500 mt-1.5 font-mono">
+                                    <span id="time-2">0:00</span>
+                                    <span id="duration-2">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <audio id="audio-2" src="You dont have to be the Bad Guy... - Lego Movie Fan Music.mp3" preload="metadata"></audio>
+                </div>
+
+                <!-- Track 3 (Yellow Theme - Coming Soon) -->
+                <div class="group relative bg-[#121212] border-2 border-white/10 rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:-rotate-1 hover:border-yellow-500 overflow-hidden">
+                    
+                    <div class="relative z-10 flex flex-col h-full justify-center items-center min-h-[140px] text-center">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3">
+                             <i data-lucide="music" class="w-6 h-6 text-yellow-500"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1" data-key="music_soon">Coming Soon</h3>
+                        <p class="text-xs text-yellow-400 font-mono uppercase tracking-wider">Stay Tuned</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- STATS SECTION -->
     <section id="stats" class="py-16 px-6 bg-[#0f0f0f] border-t border-white/5">
@@ -538,7 +621,6 @@
                         <li><a href="#videos" class="hover:text-white transition-colors" data-key="nav_videos">Videos</a></li>
                         <li><a href="#stats" class="hover:text-white transition-colors" data-key="nav_stats">Stats</a></li>
                         <li><a href="#about" class="hover:text-white transition-colors" data-key="nav_about">About</a></li>
-                        <!-- LIEN SHOP (Ajouté) -->
                         <li><a href="shop.html" class="hover:text-white transition-colors" data-key="nav_shop">Shop</a></li>
                     </ul>
                 </div>
@@ -580,15 +662,87 @@
         const currentLangSpan = document.getElementById('current-lang');
         let currentLang = 'en';
 
+        // --- Multi-Player Music Logic ---
+        const playIcon = `<i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>`;
+        const pauseIcon = `<i data-lucide="pause" class="w-5 h-5 fill-current"></i>`;
+
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const audioId = this.getAttribute('data-audio-id');
+                const audio = document.getElementById(audioId);
+                const progressBar = document.getElementById(audioId.replace('audio', 'progress'));
+                const durationDisplay = document.getElementById(audioId.replace('audio', 'duration'));
+                
+                // Pause all other audios
+                document.querySelectorAll('audio').forEach(otherAudio => {
+                    if (otherAudio.id !== audioId) {
+                        otherAudio.pause();
+                        // Reset button icon for others
+                        const otherBtn = document.querySelector(`[data-audio-id="${otherAudio.id}"]`);
+                        if(otherBtn) {
+                            otherBtn.innerHTML = playIcon;
+                            lucide.createIcons();
+                        }
+                    }
+                });
+
+                // Toggle Current Audio
+                if (audio.paused) {
+                    audio.play();
+                    this.innerHTML = pauseIcon;
+                } else {
+                    audio.pause();
+                    this.innerHTML = playIcon;
+                }
+                lucide.createIcons();
+
+                // Setup Progress Bar Update
+                audio.addEventListener('timeupdate', () => {
+                    if (!isNaN(audio.duration)) {
+                        const percent = (audio.currentTime / audio.duration) * 100;
+                        progressBar.value = percent;
+                        
+                        // Update Time Text
+                        const mins = Math.floor(audio.currentTime / 60);
+                        const secs = Math.floor(audio.currentTime % 60);
+                        const timeSpan = document.getElementById(audioId.replace('audio', 'time'));
+                        timeSpan.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                    }
+                });
+
+                // Set duration once metadata is loaded
+                audio.addEventListener('loadedmetadata', () => {
+                     const mins = Math.floor(audio.duration / 60);
+                     const secs = Math.floor(audio.duration % 60);
+                     durationDisplay.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                });
+
+                // Handle Progress Bar Seek
+                progressBar.addEventListener('input', () => {
+                    const time = (progressBar.value / 100) * audio.duration;
+                    audio.currentTime = time;
+                });
+
+                // Reset on End
+                audio.addEventListener('ended', () => {
+                    this.innerHTML = playIcon;
+                    lucide.createIcons();
+                    progressBar.value = 0;
+                });
+            });
+        });
+
         const translations = {
             en: { 
-                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About", nav_shop: "Shop",
+                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About", nav_music: "Music", nav_shop: "Shop",
                 btn_sub: "Subscribe",
                 tag_lego: "Lego Animation", tag_3d: "3D Animation",
                 hero_desc: "Emmet and Rex are back in <strong>LEGO REBUILD</strong>! An adventure across different LEGO universes awaits them: Ninjago, Star Wars, and many more! But a mysterious character emerges... <em>Who is he?</em>",
                 btn_watch: "WATCH NOW", btn_trailer: "Watch Trailer",
                 section_videos: "Latest Episodes", 
                 section_other_videos: "Other Videos",
+                section_music: "Music Lounge",
+                music_soon: "Coming Soon",
                 btn_view_more: "View All Videos",
                 section_stats: "Community Stats", stat_subs: "Subscribers", stat_views: "Views", stat_followers: "Followers", stat_members: "Members", btn_join: "Join Server",
                 bio_title: "About Me", 
@@ -604,13 +758,15 @@
                 footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷"
             },
             fr: { 
-                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_shop: "Boutique",
+                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_music: "Musique", nav_shop: "Boutique",
                 btn_sub: "S'abonner",
                 tag_lego: "Animation Lego", tag_3d: "Animation 3D",
                 hero_desc: "Emmet et Rex sont de retour dans <strong>LEGO REBUILD</strong> ! Une aventure à travers différents univers LEGO les attend : Ninjago, Star Wars, et bien d'autres ! Mais un personnage mystérieux émerge... <em>Qui est-il ?</em>",
                 btn_watch: "REGARDER", btn_trailer: "Voir le Trailer",
                 section_videos: "Derniers Épisodes", 
                 section_other_videos: "Autres Vidéos",
+                section_music: "Lounge Musique",
+                music_soon: "Bientôt Disponible",
                 btn_view_more: "Voir toutes les vidéos",
                 section_stats: "Statistiques", stat_subs: "Abonnés", stat_views: "Vues", stat_followers: "Abonnés", stat_members: "Membres", btn_join: "Rejoindre",
                 bio_title: "À propos de moi", 
