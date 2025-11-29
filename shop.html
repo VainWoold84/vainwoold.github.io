@@ -133,6 +133,7 @@
             <div class="hidden md:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
                 <a href="index.html#home" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_home">Home</a>
                 <a href="index.html#videos" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_videos">Videos</a>
+                <a href="index.html#music" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_music">Music</a>
                 <a href="index.html#stats" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_stats">Stats</a>
                 <a href="index.html#about" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_about">About</a>
             </div>
@@ -147,6 +148,11 @@
                 <!-- BOUTON SHOP (Actif) -->
                 <a href="#" class="p-2 text-white bg-white/10 rounded-full transition-all cursor-default" title="Shop">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </a>
+
+                <!-- BOUTON CALENDRIER -->
+                <a href="check.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Check Calendar">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
                 </a>
 
                 <a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hidden sm:flex btn-tactile bg-white text-black px-5 py-2 text-sm font-bold items-center gap-2 rounded-full hover:bg-gray-200 transition-colors">
@@ -166,8 +172,6 @@
 
         <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
             
-            <!-- Static Star Icon (REMOVED) -->
-            
             <!-- 3D CARD INTERACTIVE HERO -->
             <div class="cards-container mb-12 w-full max-w-4xl">
                 
@@ -179,14 +183,13 @@
 
                 <!-- Right Card (Nouvelle Image 1) -->
                 <div class="card-3d card-right bg-neutral-900">
-                    <img src="spiderpunk.jpg" class="w-full h-full object-cover opacity-80" alt="Product Mockup 2">
+                    <img src="image_8756bb.png" class="w-full h-full object-cover opacity-80" alt="Product Mockup 2">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 </div>
 
                 <!-- Center Card (Nouvelle Image 2) -->
                 <div class="card-3d card-center bg-neutral-800">
-                    <img src="vilainimage.jpg" class="w-full h-full object-cover" alt="Main Product">
-                    <!-- Calque texte retiré pour une meilleure visibilité de l'image centrale -->
+                    <img src="MINIA (2).jpg" class="w-full h-full object-cover" alt="Main Product">
                 </div>
 
             </div>
@@ -271,9 +274,11 @@
                     <ul class="space-y-2 text-sm text-neutral-500">
                         <li><a href="index.html#home" class="hover:text-white transition-colors" data-key="nav_home">Home</a></li>
                         <li><a href="index.html#videos" class="hover:text-white transition-colors" data-key="nav_videos">Videos</a></li>
+                        <li><a href="index.html#music" class="hover:text-white transition-colors" data-key="nav_music">Music</a></li>
                         <li><a href="index.html#stats" class="hover:text-white transition-colors" data-key="nav_stats">Stats</a></li>
                         <li><a href="index.html#about" class="hover:text-white transition-colors" data-key="nav_about">About</a></li>
                         <li><a href="#" class="text-white font-bold transition-colors" data-key="nav_shop">Shop</a></li>
+                        <li><a href="check.html" class="hover:text-white transition-colors">Check</a></li>
                     </ul>
                 </div>
 
@@ -316,14 +321,14 @@
 
         const translations = {
             en: { 
-                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About", nav_shop: "Shop",
+                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About", nav_shop: "Shop", nav_music: "Music",
                 btn_sub: "Subscribe",
                 coming_soon: "Coming Soon",
                 footer_tagline: "Coded with HTML, Tailwind CSS & JS. Hosted on GitHub.",
                 footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷"
             },
             fr: { 
-                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_shop: "Boutique",
+                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_shop: "Boutique", nav_music: "Musique",
                 btn_sub: "S'abonner",
                 coming_soon: "Bientôt Disponible",
                 footer_tagline: "Codé avec HTML, Tailwind CSS & JS. Hébergé sur GitHub.",
