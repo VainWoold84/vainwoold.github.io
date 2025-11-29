@@ -49,38 +49,49 @@
 
         /* --- Calendar Styles --- */
         .day-circle {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            overflow: hidden;
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #737373; /* neutral-500 */
+        }
+
+        .day-circle:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
         }
 
         .day-circle:active {
             transform: scale(0.9);
         }
 
-        /* Google Gradient Check */
+        /* --- Google Ring Effect (Corrected) --- */
+        /* This creates the multi-colored border effect */
         .checked-google {
-            background: linear-gradient(135deg, #4285F4, #EA4335, #FBBC05, #34A853);
-            background-size: 300% 300%;
-            animation: gradient-shift 3s ease infinite;
-            box-shadow: 0 0 20px rgba(66, 133, 244, 0.4);
-            border-color: transparent !important;
+            border: 2px solid transparent !important;
+            background: linear-gradient(#121212, #121212) padding-box, /* Inner color */
+                        conic-gradient(from 45deg, #EA4335, #4285F4, #34A853, #FBBC05, #EA4335) border-box !important; /* Ring gradient */
+            color: white !important;
+            box-shadow: 0 0 15px rgba(66, 133, 244, 0.3), 0 0 5px rgba(234, 67, 53, 0.2); /* Glow effect */
+            animation: pulse-glow 3s infinite alternate;
         }
 
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px rgba(66, 133, 244, 0.2); }
+            100% { box-shadow: 0 0 20px rgba(66, 133, 244, 0.5); }
         }
 
+        /* Check Icon Animation */
         .check-icon {
-            stroke-dasharray: 24;
-            stroke-dashoffset: 24;
-            transition: stroke-dashoffset 0.4s ease 0.1s;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
         }
 
         .checked-google .check-icon {
-            stroke-dashoffset: 0;
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Loading Spinner */
@@ -158,7 +169,7 @@
                     Track your daily progress. Click on a day to mark it as productive. Keep the streak alive!
                 </p>
                 <div id="auth-status" class="mt-4 h-6 flex justify-center items-center">
-                    <div class="spinner"></div>
+                    <!-- Status message will appear here if needed -->
                 </div>
             </div>
 
@@ -171,7 +182,7 @@
                         <i data-lucide="chevron-left" class="w-6 h-6"></i>
                     </button>
                     <h2 id="current-month-year" class="text-xl md:text-2xl font-bold font-heading text-white min-w-[200px] text-center">
-                        Loading...
+                        <div class="spinner mx-auto"></div> <!-- Initial Loading Spinner -->
                     </h2>
                     <button id="next-month" class="p-2 hover:bg-white/5 rounded-full text-neutral-400 hover:text-white transition-colors">
                         <i data-lucide="chevron-right" class="w-6 h-6"></i>
@@ -200,9 +211,12 @@
                         Total Checked: <span id="total-checked" class="font-bold text-white">0</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600"></div>
+                        <!-- Legend for the new style -->
+                        <div class="w-4 h-4 rounded-full border border-white/20"></div>
                         <span class="text-xs text-neutral-500 mr-4">Lazy</span>
-                        <div class="w-3 h-3 rounded-full checked-google"></div>
+                        
+                        <!-- Mini representation of the Google Ring -->
+                        <div class="w-4 h-4 rounded-full relative" style="background: linear-gradient(#121212,#121212) padding-box, conic-gradient(from 45deg, #EA4335, #4285F4, #34A853, #FBBC05, #EA4335) border-box; border: 2px solid transparent;"></div>
                         <span class="text-xs text-neutral-500">Productive</span>
                     </div>
                 </div>
@@ -276,37 +290,50 @@
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- Firebase Init ---
+        // --- Init Logic to prevent "Loading" hang ---
         let db, auth, userId;
+        let useLocalStorage = false;
         
-        // Use environment provided config or fallback (fallback won't work without real keys but prevents crash)
+        // Try getting environment config
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'vainwoold-app';
 
-        if (firebaseConfig) {
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-            
-            // Sign In
-            signInAnonymously(auth).catch((error) => {
-                console.error("Auth failed:", error);
-                document.getElementById('auth-status').innerHTML = '<span class="text-red-500 text-xs">Offline Mode (Local)</span>';
-                useLocalStorage = true;
-            });
+        async function initApp() {
+            if (firebaseConfig) {
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+                    
+                    // Attempt Login
+                    await signInAnonymously(auth);
+                    
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            initCalendarListeners();
+                        } else {
+                            // Fallback if auth state is null (rare but possible)
+                            startLocalMode("Not logged in");
+                        }
+                    });
 
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    userId = user.uid;
-                    document.getElementById('auth-status').innerHTML = ''; // Clear spinner
-                    initCalendarListeners();
+                } catch (error) {
+                    // Firebase failed (network blocked, config error, etc) -> Use Local
+                    console.error("Firebase Init Failed, switching to Local Storage:", error);
+                    startLocalMode("Offline Mode");
                 }
-            });
-        } else {
-            console.warn("No Firebase Config found. Using LocalStorage.");
-            document.getElementById('auth-status').innerHTML = '<span class="text-yellow-500 text-xs">Local Storage Mode</span>';
+            } else {
+                // No Config provided -> Use Local
+                startLocalMode("Local Storage Mode");
+            }
+        }
+
+        function startLocalMode(msg) {
+            useLocalStorage = true;
             userId = "local-user";
-            initCalendarListeners(); // Will use localStorage
+            // document.getElementById('auth-status').innerHTML = `<span class="text-neutral-600 text-[10px]">${msg}</span>`;
+            initCalendarListeners();
         }
 
         // --- Calendar Logic ---
@@ -347,12 +374,24 @@
                 const isChecked = checkedDays[dateKey] || false;
 
                 const dayBtn = document.createElement('button');
-                dayBtn.className = `day-circle w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border-2 text-sm font-bold transition-all
-                    ${isChecked ? 'checked-google text-white border-transparent' : 'border-white/20 text-neutral-400 hover:border-white/50 hover:bg-white/5'}`;
+                // Base classes
+                let classes = "day-circle w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold text-sm cursor-pointer ";
                 
-                dayBtn.innerHTML = isChecked 
-                    ? `<i data-lucide="check" class="check-icon w-5 h-5 md:w-6 md:h-6"></i>` 
-                    : day;
+                // Conditional classes
+                if (isChecked) {
+                    classes += "checked-google"; // Applies the gradient ring
+                }
+
+                dayBtn.className = classes;
+                
+                // Content: Check icon or Date number
+                // Note: The checked-google class handles text color
+                if (isChecked) {
+                     // Adding a small check icon with "opacity-0" to "opacity-1" transition handled by CSS
+                     dayBtn.innerHTML = `<i data-lucide="check" class="check-icon w-5 h-5 md:w-6 md:h-6 text-white"></i>`;
+                } else {
+                     dayBtn.innerHTML = day;
+                }
 
                 dayBtn.onclick = () => toggleDay(dateKey);
                 calendarGrid.appendChild(dayBtn);
@@ -369,7 +408,7 @@
 
         // --- Data Persistence ---
         function initCalendarListeners() {
-            if (db && userId && userId !== "local-user") {
+            if (!useLocalStorage && db && userId) {
                 // Firestore Mode
                 const docRef = doc(db, 'artifacts', appId, 'users', userId, 'productivity', 'calendar_data');
                 
@@ -381,22 +420,28 @@
                     }
                     renderCalendar();
                 }, (error) => {
-                    console.error("Sync Error:", error);
+                    console.error("Sync Error, fallback to render:", error);
+                    // Ensure calendar renders even if sync fails mid-stream
+                    renderCalendar();
                 });
             } else {
-                // LocalStorage Mode (Fallback)
+                // LocalStorage Mode
                 const stored = localStorage.getItem('vainwoold_calendar');
-                if (stored) checkedDays = JSON.parse(stored);
+                if (stored) {
+                    try {
+                        checkedDays = JSON.parse(stored);
+                    } catch (e) { checkedDays = {}; }
+                }
                 renderCalendar();
             }
         }
 
-        async function toggleDay(dateKey) {
+        window.toggleDay = async function(dateKey) {
             // Optimistic Update
             checkedDays[dateKey] = !checkedDays[dateKey];
             renderCalendar();
 
-            if (db && userId && userId !== "local-user") {
+            if (!useLocalStorage && db && userId) {
                 try {
                     const docRef = doc(db, 'artifacts', appId, 'users', userId, 'productivity', 'calendar_data');
                     await setDoc(docRef, { days: checkedDays }, { merge: true });
@@ -419,17 +464,19 @@
             renderCalendar();
         });
 
+        // --- Start App ---
+        initApp();
+
         // --- Init Lucide ---
         lucide.createIcons();
         
-        // --- Lang Toggle Logic (Copied from index) ---
+        // --- Lang Toggle Logic ---
         const langToggleBtn = document.getElementById('lang-toggle');
         const currentLangSpan = document.getElementById('current-lang');
         let currentLang = 'en';
         langToggleBtn.addEventListener('click', () => {
             currentLang = currentLang === 'en' ? 'fr' : 'en';
             currentLangSpan.textContent = currentLang.toUpperCase();
-            // (Simple toggle visual only for this page as content is mostly dynamic/universal)
         });
 
     </script>
