@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Master Cloud - Vainwoold</title>
+    <!-- Bibliothèques externes -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- SDK Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, setDoc, collection, addDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        window.FirebaseSDK = { initializeApp, getAuth, signInAnonymously, onAuthStateChanged, getFirestore, doc, onSnapshot, setDoc, collection, addDoc, deleteDoc, query };
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #FBFBFA; color: #37352F; }
+        .sync-badge { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .notion-shadow { box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useEffect } = React;
+
+        const Icon = ({ name, size = 16, className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [name]);
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
+
+        const CATEGORIES = {
+            income: ['Salaire', 'Vente', 'Cadeau', 'Remboursement', 'Autre'],
+            expense: ['Logement', 'Alimentation', 'Transport', 'Loisirs', 'Santé', 'Abonnements', 'Shopping', 'Autre']
+        };
+
+        const App = () => {
+            const [user, setUser] = useState(null);
+            const [transactions, setTransactions] = useState([]);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [newLabel, setNewLabel] = useState('');
+            const [newAmount, setNewAmount] = useState('');
+            const [newType, setNewType] = useState('expense');
+            const [newCategory, setNewCategory] = useState('Alimentation');
+            const [showImport, setShowImport] = useState(false);
+            const [importId, setImportId] = useState('');
+
+            useEffect(() => {
+                const initFirebase = async () => {
+                    const sdk = window.FirebaseSDK;
+                    if (!sdk) return;
+
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyAHkXi5lRf7u2pssrzK7XRQHgYvAJkcjSI",
+                        authDomain: "vain-budget.firebaseapp.com",
+                        projectId: "vain-budget",
+                        storageBucket: "vain-budget.firebasestorage.app",
+                        messagingSenderId: "7267769550",
+                        appId: "1:7267769550:web:1bb9576499a79a236a849f"
+                    };
+
+                    try {
+                        const app = sdk.initializeApp(firebaseConfig);
+                        const auth = sdk.getAuth(app);
+                        const db = sdk.getFirestore(app);
+                        const appId = 'budget-master-v1';
+
+                        // Tentative de connexion anonyme
+                        try {
+                            await sdk.signInAnonymously(auth);
+                        } catch (authErr) {
+                            if (authErr.code === 'auth/configuration-not-found') {
+                                setError("Veuillez activer 'Authentification Anonyme' dans votre console Firebase (Onglet Authentication > Sign-in method).");
+                            } else {
+                                setError("Erreur d'authentification : " + authErr.message);
+                            }
+                            setLoading(false);
+                            return;
+                        }
+
+                        const unsubscribeAuth = sdk.onAuthStateChanged(auth, (firebaseUser) => {
+                            if (firebaseUser) {
+                                const effectiveUid = localStorage.getItem('budget_master_uid') || firebaseUser.uid;
+                                setUser({ ...firebaseUser, uid: effectiveUid });
+                                
+                                const colRef = sdk.collection(db, 'artifacts', appId, 'public', 'data', 'budgets', effectiveUid, 'transactions');
+                                
+                                const unsubscribeSnap = sdk.onSnapshot(colRef, (querySnap) => {
+                                    const items = [];
+                                    querySnap.forEach((doc) => {
+                                        items.push({ id: doc.id, ...doc.data() });
+                                    });
+                                    items.sort((a, b) => b.timestamp - a.timestamp);
+                                    setTransactions(items);
+                                    setLoading(false);
+                                }, (err) => {
+                                    console.error("Erreur Firestore:", err);
+                                    setError("Erreur de base de données. Vérifiez vos règles Firestore.");
+                                    setLoading(false);
+                                });
+                                return () => unsubscribeSnap();
+                            }
+                        });
+                        return () => unsubscribeAuth();
+                    } catch (err) {
+                        console.error("Erreur d'initialisation :", err);
+                        setError("Erreur d'initialisation de l'application.");
+                        setLoading(false);
+                    }
+                };
+
+                const checkSDK = setInterval(() => {
+                    if (window.FirebaseSDK) {
+                        clearInterval(checkSDK);
+                        initFirebase();
+                    }
+                }, 100);
+            }, []);
+
+            const addTransaction = async (e) => {
+                e.preventDefault();
+                if (!newLabel || !newAmount || !user) return;
+                
+                const sdk = window.FirebaseSDK;
+                const db = sdk.getFirestore();
+                const appId = 'budget-master-v1';
+                
+                const newItem = {
+                    label: newLabel,
+                    amount: parseFloat(newAmount),
+                    type: newType,
+                    category: newCategory,
+                    timestamp: Date.now(),
+                    date: new Date().toLocaleDateString('fr-FR')
+                };
+
+                try {
+                    const colRef = sdk.collection(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions');
+                    await sdk.addDoc(colRef, newItem);
+                    setNewLabel(''); setNewAmount('');
+                } catch (e) { console.error("Erreur ajout :", e); }
+            };
+
+            const deleteTransaction = async (transactionId) => {
+                if (!user) return;
+                const sdk = window.FirebaseSDK;
+                const db = sdk.getFirestore();
+                const appId = 'budget-master-v1';
+                
+                try {
+                    const docRef = sdk.doc(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions', transactionId);
+                    await sdk.deleteDoc(docRef);
+                } catch (e) { console.error("Erreur suppression :", e); }
+            };
+
+            const totals = useMemo(() => {
+                return transactions.reduce((acc, curr) => {
+                    if (curr.type === 'income') acc.income += curr.amount;
+                    else acc.expense += curr.amount;
+                    acc.balance = acc.income - acc.expense;
+                    return acc;
+                }, { income: 0, expense: 0, balance: 0 });
+            }, [transactions]);
+
+            const copyId = () => {
+                if (user) {
+                    const el = document.createElement('textarea');
+                    el.value = user.uid;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                }
+            };
+
+            const handleImport = () => {
+                if (importId.trim()) {
+                    localStorage.setItem('budget_master_uid', importId.trim());
+                    window.location.reload();
+                }
+            };
+
+            if (error) return (
+                <div className="flex items-center justify-center h-screen bg-[#FBFBFA] p-6 text-center">
+                    <div className="max-w-md bg-white p-8 rounded-2xl notion-shadow border border-red-100">
+                        <Icon name="alert-circle" size={48} className="text-red-500 mx-auto mb-4" />
+                        <h2 className="text-xl font-bold mb-2">Oups ! Problème de configuration</h2>
+                        <p className="text-gray-600 mb-6">{error}</p>
+                        <button 
+                            onClick={() => window.location.reload()}
+                            className="bg-[#37352F] text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition-all"
+                        >
+                            Réessayer
+                        </button>
+                    </div>
+                </div>
+            );
+
+            if (loading) return (
+                <div className="flex items-center justify-center h-screen text-gray-400 font-medium italic">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-10 h-10 border-4 border-gray-100 border-t-black rounded-full animate-spin"></div>
+                        <p className="animate-pulse">Connexion Cloud...</p>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="p-4 md:p-8 max-w-5xl mx-auto selection:bg-blue-100">
+                    <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                        <div>
+                            <h1 className="text-3xl font-bold flex items-center gap-3">
+                                <span className="p-2 bg-white rounded-xl notion-shadow"><Icon name="layout" size={24} /></span>
+                                Vain-Budget Master
+                            </h1>
+                            <p className="text-sm text-gray-500 mt-1">Données Cloud Persistantes</p>
+                        </div>
+                        <div className="flex flex-col items-end gap-2">
+                            <div className="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full border border-green-100 text-[10px] font-bold uppercase tracking-widest">
+                                <span className="w-2 h-2 bg-green-500 rounded-full sync-badge"></span>
+                                Cloud Live
+                            </div>
+                            <div className="flex gap-2">
+                                <button onClick={() => setShowImport(!showImport)} className="text-[10px] text-gray-500 hover:text-black font-bold bg-white border px-2 py-1 rounded shadow-sm hover:bg-gray-50 transition-all">
+                                    {showImport ? "Annuler" : "Restaurer un ID"}
+                                </button>
+                                <button onClick={copyId} className="text-[10px] text-gray-400 font-mono bg-white border px-2 py-1 rounded hover:border-black transition-colors" title="Copier mon ID unique">
+                                    ID: {user?.uid?.substring(0, 8)}...
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {showImport && (
+                        <div className="mb-8 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3 items-center animate-in fade-in duration-300">
+                            <input type="text" placeholder="ID de synchronisation..." className="flex-1 p-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-200" value={importId} onChange={(e) => setImportId(e.target.value)} />
+                            <button onClick={handleImport} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-blue-700">Charger</button>
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div className="bg-white p-6 rounded-2xl border border-gray-200 notion-shadow transition-transform hover:-translate-y-1">
+                            <div className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2"><Icon name="wallet" /> Solde</div>
+                            <div className={`text-3xl font-bold tracking-tight ${totals.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                {totals.balance.toLocaleString('fr-FR')} €
+                            </div>
+                        </div>
+                        <div className="bg-white p-6 rounded-2xl border border-gray-200 notion-shadow transition-transform hover:-translate-y-1">
+                            <div className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2 text-green-500"><Icon name="trending-up" /> Revenus</div>
+                            <div className="text-3xl font-bold tracking-tight">{totals.income.toLocaleString('fr-FR')} €</div>
+                        </div>
+                        <div className="bg-white p-6 rounded-2xl border border-gray-200 notion-shadow transition-transform hover:-translate-y-1">
+                            <div className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2 text-red-500"><Icon name="trending-down" /> Dépenses</div>
+                            <div className="text-3xl font-bold tracking-tight">{totals.expense.toLocaleString('fr-FR')} €</div>
+                        </div>
+                    </div>
+
+                    <section className="bg-white p-6 rounded-2xl border border-gray-200 mb-8 notion-shadow">
+                        <form onSubmit={addTransaction} className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                            <div className="md:col-span-2">
+                                <input type="text" placeholder="Libellé" className="w-full p-2.5 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-gray-200 transition-all" value={newLabel} onChange={e => setNewLabel(e.target.value)} />
+                            </div>
+                            <input type="number" placeholder="Montant" className="w-full p-2.5 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-gray-200 transition-all" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
+                            <select className="w-full p-2.5 bg-gray-50 border rounded-xl outline-none cursor-pointer" value={newType} onChange={e => {setNewType(e.target.value); setNewCategory(CATEGORIES[e.target.value][0]);}}>
+                                <option value="expense">Dépense</option>
+                                <option value="income">Revenu</option>
+                            </select>
+                            <button type="submit" className="bg-[#37352F] text-white font-bold p-2.5 rounded-xl hover:bg-black transition-all active:scale-95 shadow-md">Ajouter</button>
+                        </form>
+                    </section>
+
+                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden notion-shadow">
+                        <table className="w-full text-left text-sm">
+                            <thead className="bg-gray-50/50 border-b">
+                                <tr>
+                                    <th className="px-6 py-4 font-bold text-gray-400 uppercase text-[10px] tracking-widest">Opération</th>
+                                    <th className="px-6 py-4 font-bold text-gray-400 uppercase text-[10px] tracking-widest">Catégorie</th>
+                                    <th className="px-6 py-4 font-bold text-gray-400 uppercase text-[10px] tracking-widest text-right">Montant</th>
+                                    <th className="px-6 py-4 text-right"></th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y">
+                                {transactions.length === 0 ? (
+                                    <tr><td colSpan="4" className="px-6 py-16 text-center text-gray-300 italic">Aucune transaction trouvée.</td></tr>
+                                ) : (
+                                    transactions.map(t => (
+                                        <tr key={t.id} className="hover:bg-gray-50 group transition-colors">
+                                            <td className="px-6 py-4">
+                                                <div className="font-semibold text-gray-800">{t.label}</div>
+                                                <div className="text-[10px] text-gray-400">{t.date}</div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="px-2.5 py-1 bg-gray-100 rounded-md text-[11px] font-medium border border-gray-200 text-gray-600">{t.category}</span>
+                                            </td>
+                                            <td className={`px-6 py-4 text-right font-bold ${t.type === 'income' ? 'text-green-600' : 'text-red-500'}`}>
+                                                {t.type === 'income' ? '+' : '-'} {t.amount.toLocaleString('fr-FR')} €
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <button onClick={() => deleteTransaction(t.id)} className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-500 p-2 transition-all hover:bg-red-50 rounded-lg">
+                                                    <Icon name="trash-2" size={14} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
