@@ -27,6 +27,7 @@
             font-family: 'Inter', sans-serif; 
             background-color: #0a0a0a; 
             color: #efefef; 
+            overflow-x: hidden;
         }
 
         .sync-badge { animation: pulse 2s infinite; }
@@ -41,12 +42,13 @@
         .vw-card {
             background-color: #141414;
             border: 1px solid #262626;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .vw-card:hover {
             border-color: #404040;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .vw-input {
@@ -59,6 +61,8 @@
         .vw-input:focus {
             border-color: #525252;
             background-color: #222;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
         }
 
         .vw-table-header {
@@ -68,12 +72,27 @@
 
         .vw-row {
             border-bottom: 1px solid #1a1a1a;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .vw-row:hover {
             background-color: #1a1a1a;
         }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .income-accent { border-left: 4px solid #22c55e; }
+        .expense-accent { border-left: 4px solid #ef4444; }
+        
+        .income-glow { box-shadow: 0 0 15px rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.2); }
+        .expense-glow { box-shadow: 0 0 15px rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
     </style>
 </head>
 <body>
@@ -89,11 +108,6 @@
             return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
         };
 
-        const CATEGORIES = {
-            income: ['Salaire', 'Vente', 'Cadeau', 'Remboursement', 'Autre'],
-            expense: ['Logement', 'Alimentation', 'Transport', 'Loisirs', 'Santé', 'Abonnements', 'Shopping', 'Autre']
-        };
-
         const App = () => {
             const [user, setUser] = useState(null);
             const [transactions, setTransactions] = useState([]);
@@ -102,7 +116,7 @@
             const [newLabel, setNewLabel] = useState('');
             const [newAmount, setNewAmount] = useState('');
             const [newType, setNewType] = useState('expense');
-            const [newCategory, setNewCategory] = useState('Alimentation');
+            const [newCategory, setNewCategory] = useState('');
             const [showImport, setShowImport] = useState(false);
             const [importId, setImportId] = useState('');
 
@@ -189,7 +203,7 @@
                     label: newLabel,
                     amount: parseFloat(newAmount),
                     type: newType,
-                    category: newCategory,
+                    category: newCategory || 'Général',
                     timestamp: Date.now(),
                     date: new Date().toLocaleDateString('fr-FR')
                 };
@@ -197,7 +211,9 @@
                 try {
                     const colRef = sdk.collection(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions');
                     await sdk.addDoc(colRef, newItem);
-                    setNewLabel(''); setNewAmount('');
+                    setNewLabel(''); 
+                    setNewAmount('');
+                    setNewCategory('');
                 } catch (e) { setError("Erreur lors de l'ajout."); }
             };
 
@@ -255,7 +271,7 @@
             );
 
             return (
-                <div className="p-4 md:p-10 max-w-5xl mx-auto selection:bg-neutral-800 selection:text-white">
+                <div className="p-4 md:p-10 max-w-5xl mx-auto selection:bg-neutral-800 selection:text-white animate-fade-in">
                     <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                         <div>
                             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
@@ -267,18 +283,18 @@
                         <div className="flex flex-col items-end gap-3">
                             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-[0.15em] ${error ? 'bg-red-950/30 text-red-500 border-red-900/50' : 'bg-green-950/20 text-green-500 border-green-900/30'}`}>
                                 <span className={`w-1.5 h-1.5 rounded-full ${error ? 'bg-red-500' : 'bg-green-500 sync-badge'}`}></span>
-                                {error ? 'Sync Error' : 'Cloud Synchronized'}
+                                {error ? 'Erreur Sync' : 'Cloud Synchronisé'}
                             </div>
                             <div className="flex gap-2">
                                 <button onClick={() => setShowImport(!showImport)} className="text-[10px] text-neutral-400 hover:text-white font-bold uppercase tracking-wider bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg transition-all">
-                                    {showImport ? "Cancel" : "Import ID"}
+                                    {showImport ? "Annuler" : "Importer ID"}
                                 </button>
                                 {localStorage.getItem('budget_master_uid') && (
                                     <button onClick={resetId} className="text-[10px] text-red-400 hover:text-red-300 font-bold uppercase tracking-wider bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg transition-all">
-                                        Reset ID
+                                        Réinitialiser ID
                                     </button>
                                 )}
-                                <button onClick={copyId} className="text-[10px] text-neutral-500 font-mono bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg hover:border-neutral-600 transition-colors" title="Copy sync ID">
+                                <button onClick={copyId} className="text-[10px] text-neutral-500 font-mono bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg hover:border-neutral-600 transition-colors" title="Copier l'ID de synchro">
                                     ID: {user?.uid?.substring(0, 8)}...
                                 </button>
                             </div>
@@ -289,7 +305,7 @@
                         <div className="mb-8 p-4 bg-red-950/20 border border-red-900/30 rounded-2xl flex gap-3 items-start animate-in fade-in zoom-in duration-300">
                             <Icon name="alert-triangle" className="text-red-500 mt-0.5" />
                             <div>
-                                <h3 className="text-sm font-bold text-red-400">Database Connection Issue</h3>
+                                <h3 className="text-sm font-bold text-red-400">Problème de connexion</h3>
                                 <p className="text-xs text-red-300/70 mt-1">{error}</p>
                             </div>
                         </div>
@@ -297,40 +313,53 @@
 
                     {showImport && (
                         <div className="mb-10 p-5 bg-neutral-900 border border-neutral-800 rounded-2xl flex gap-4 items-center animate-in slide-in-from-top-4 duration-300 shadow-2xl">
-                            <input type="text" placeholder="Enter synchronization ID..." className="flex-1 p-3 bg-neutral-950 border border-neutral-800 rounded-xl text-sm outline-none focus:border-neutral-600 transition-all text-white font-mono" value={importId} onChange={(e) => setImportId(e.target.value)} />
-                            <button onClick={handleImport} className="bg-white text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-neutral-200 active:scale-95 transition-all">Load Data</button>
+                            <input type="text" placeholder="Entrez l'ID de synchronisation..." className="flex-1 p-3 bg-neutral-950 border border-neutral-800 rounded-xl text-sm outline-none focus:border-neutral-600 transition-all text-white font-mono" value={importId} onChange={(e) => setImportId(e.target.value)} />
+                            <button onClick={handleImport} className="bg-white text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-neutral-200 active:scale-95 transition-all">Charger les données</button>
                         </div>
                     )}
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                         <div className="vw-card p-7 rounded-3xl">
-                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="activity" size={14} /> Global Balance</div>
+                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="activity" size={14} /> Solde Global</div>
                             <div className={`text-4xl font-bold tracking-tighter ${totals.balance >= 0 ? 'text-white' : 'text-red-500'}`}>
                                 {totals.balance.toLocaleString('fr-FR')} €
                             </div>
                         </div>
-                        <div className="vw-card p-7 rounded-3xl">
-                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="plus-circle" size={14} className="text-green-500" /> Total Incomes</div>
+                        <div className="vw-card p-7 rounded-3xl income-glow">
+                            <div className="text-[10px] font-black text-green-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="plus-circle" size={14} /> Total Revenus</div>
                             <div className="text-4xl font-bold tracking-tighter text-white">{totals.income.toLocaleString('fr-FR')} €</div>
                         </div>
-                        <div className="vw-card p-7 rounded-3xl">
-                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="minus-circle" size={14} className="text-red-500" /> Total Expenses</div>
+                        <div className="vw-card p-7 rounded-3xl expense-glow">
+                            <div className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="minus-circle" size={14} /> Total Dépenses</div>
                             <div className="text-4xl font-bold tracking-tighter text-white">{totals.expense.toLocaleString('fr-FR')} €</div>
                         </div>
                     </div>
 
                     <section className="vw-card p-7 rounded-3xl mb-10">
-                        <h2 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-2"><Icon name="plus" size={14} /> Quick Entry</h2>
-                        <form onSubmit={addTransaction} className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                            <div className="md:col-span-2">
-                                <input type="text" placeholder="Description" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newLabel} onChange={e => setNewLabel(e.target.value)} />
+                        <h2 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-2"><Icon name="plus" size={14} /> Ajout Rapide</h2>
+                        <form onSubmit={addTransaction} className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                            <div className="md:col-span-3">
+                                <label className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1 block ml-1">Description</label>
+                                <input type="text" placeholder="ex: Courses" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newLabel} onChange={e => setNewLabel(e.target.value)} />
                             </div>
-                            <input type="number" placeholder="Amount (€)" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
-                            <select className="vw-input w-full p-3 rounded-xl text-sm outline-none cursor-pointer appearance-none" value={newType} onChange={e => {setNewType(e.target.value); setNewCategory(CATEGORIES[e.target.value][0]);}}>
-                                <option value="expense">Expense</option>
-                                <option value="income">Income</option>
-                            </select>
-                            <button type="submit" className="bg-white text-black font-black uppercase tracking-widest text-[10px] py-3 rounded-xl hover:bg-neutral-200 active:scale-95 transition-all shadow-lg">Add Entry</button>
+                            <div className="md:col-span-2">
+                                <label className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1 block ml-1">Montant (€)</label>
+                                <input type="number" placeholder="0.00" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1 block ml-1">Type</label>
+                                <select className="vw-input w-full p-3 rounded-xl text-sm outline-none cursor-pointer appearance-none" value={newType} onChange={e => setNewType(e.target.value)}>
+                                    <option value="expense">Dépense</option>
+                                    <option value="income">Revenu</option>
+                                </select>
+                            </div>
+                            <div className="md:col-span-3">
+                                <label className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1 block ml-1">Catégorie</label>
+                                <input type="text" placeholder="ex: Loisirs" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newCategory} onChange={e => setNewCategory(e.target.value)} />
+                            </div>
+                            <div className="md:col-span-2 flex items-end">
+                                <button type="submit" className="bg-white text-black font-black uppercase tracking-widest text-[10px] w-full py-3 rounded-xl hover:bg-neutral-200 active:scale-95 transition-all shadow-lg">Ajouter</button>
+                            </div>
                         </form>
                     </section>
 
@@ -339,18 +368,18 @@
                             <table className="w-full text-left text-sm">
                                 <thead>
                                     <tr className="vw-table-header">
-                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest">Transaction</th>
-                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest">Category</th>
-                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-right">Amount</th>
-                                        <th className="px-8 py-5 text-right"></th>
+                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest">Opération</th>
+                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest">Catégorie</th>
+                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-right">Montant</th>
+                                        <th className="px-8 py-5 text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-neutral-900">
                                     {transactions.length === 0 ? (
-                                        <tr><td colSpan="4" className="px-8 py-20 text-center text-neutral-600 italic font-medium">No transactions found in your cloud.</td></tr>
+                                        <tr><td colSpan="4" className="px-8 py-20 text-center text-neutral-600 italic font-medium">Aucune opération trouvée dans votre cloud.</td></tr>
                                     ) : (
                                         transactions.map(t => (
-                                            <tr key={t.id} className="vw-row group">
+                                            <tr key={t.id} className={`vw-row group ${t.type === 'income' ? 'income-accent' : 'expense-accent'}`}>
                                                 <td className="px-8 py-5">
                                                     <div className="font-bold text-white mb-0.5">{t.label}</div>
                                                     <div className="text-[10px] text-neutral-600 font-mono tracking-tight">{t.date}</div>
@@ -362,7 +391,7 @@
                                                     {t.type === 'income' ? '+' : '-'} {t.amount.toLocaleString('fr-FR')} €
                                                 </td>
                                                 <td className="px-8 py-5 text-right">
-                                                    <button onClick={() => deleteTransaction(t.id)} className="opacity-0 group-hover:opacity-100 text-neutral-600 hover:text-red-500 p-2 transition-all hover:bg-red-500/10 rounded-lg">
+                                                    <button onClick={() => deleteTransaction(t.id)} className="opacity-0 group-hover:opacity-100 text-neutral-600 hover:text-red-500 p-2 transition-all hover:bg-red-500/10 rounded-lg" title="Supprimer">
                                                         <Icon name="trash-2" size={14} />
                                                     </button>
                                                 </td>
