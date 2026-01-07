@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Master Cloud - Vainwoold</title>
+    <title>Gestion de Budget par VainWoold</title>
     <!-- Bibliothèques externes -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -22,10 +22,58 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #FBFBFA; color: #37352F; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0a0a0a; 
+            color: #efefef; 
+        }
+
         .sync-badge { animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .notion-shadow { box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px; }
+
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+        .vw-card {
+            background-color: #141414;
+            border: 1px solid #262626;
+            transition: all 0.2s ease;
+        }
+
+        .vw-card:hover {
+            border-color: #404040;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .vw-input {
+            background-color: #1a1a1a;
+            border: 1px solid #262626;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .vw-input:focus {
+            border-color: #525252;
+            background-color: #222;
+        }
+
+        .vw-table-header {
+            background-color: #1a1a1a;
+            color: #737373;
+        }
+
+        .vw-row {
+            border-bottom: 1px solid #1a1a1a;
+            transition: background-color 0.2s ease;
+        }
+
+        .vw-row:hover {
+            background-color: #1a1a1a;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +130,7 @@
                             await sdk.signInAnonymously(auth);
                         } catch (authErr) {
                             if (authErr.code === 'auth/configuration-not-found') {
-                                setError("Veuillez activer 'Authentification Anonyme' dans Firebase (Authentication > Sign-in method).");
+                                setError("Veuillez activer 'Authentification Anonyme' dans Firebase.");
                             } else {
                                 setError("Erreur d'authentification : " + authErr.message);
                             }
@@ -92,7 +140,6 @@
 
                         const unsubscribeAuth = sdk.onAuthStateChanged(auth, (firebaseUser) => {
                             if (firebaseUser) {
-                                // Priorité à l'ID importé sauvegardé dans le localStorage
                                 const effectiveUid = localStorage.getItem('budget_master_uid') || firebaseUser.uid;
                                 setUser({ ...firebaseUser, uid: effectiveUid });
                                 
@@ -105,11 +152,11 @@
                                     });
                                     items.sort((a, b) => b.timestamp - a.timestamp);
                                     setTransactions(items);
-                                    setError(null); // Clear errors if sync works
+                                    setError(null);
                                     setLoading(false);
                                 }, (err) => {
                                     console.error("Erreur Firestore:", err);
-                                    setError("Erreur de base de données. Vérifiez que vos règles Firestore autorisent la lecture/écriture pour l'ID utilisé.");
+                                    setError("Erreur de synchronisation Cloud. Vérifiez vos règles.");
                                     setLoading(false);
                                 });
                                 return () => unsubscribeSnap();
@@ -117,7 +164,6 @@
                         });
                         return () => unsubscribeAuth();
                     } catch (err) {
-                        console.error("Erreur d'initialisation :", err);
                         setError("Erreur d'initialisation de l'application.");
                         setLoading(false);
                     }
@@ -152,10 +198,7 @@
                     const colRef = sdk.collection(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions');
                     await sdk.addDoc(colRef, newItem);
                     setNewLabel(''); setNewAmount('');
-                } catch (e) { 
-                    console.error("Erreur ajout :", e);
-                    setError("Impossible d'ajouter. Vérifiez vos règles Firestore.");
-                }
+                } catch (e) { setError("Erreur lors de l'ajout."); }
             };
 
             const deleteTransaction = async (transactionId) => {
@@ -167,10 +210,7 @@
                 try {
                     const docRef = sdk.doc(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions', transactionId);
                     await sdk.deleteDoc(docRef);
-                } catch (e) { 
-                    console.error("Erreur suppression :", e);
-                    setError("Impossible de supprimer. Vérifiez vos règles Firestore.");
-                }
+                } catch (e) { setError("Erreur lors de la suppression."); }
             };
 
             const totals = useMemo(() => {
@@ -190,7 +230,6 @@
                     el.select();
                     document.execCommand('copy');
                     document.body.removeChild(el);
-                    // On pourrait ajouter un petit toast ici
                 }
             };
 
@@ -207,39 +246,39 @@
             };
 
             if (loading) return (
-                <div className="flex items-center justify-center h-screen text-gray-400 font-medium italic">
+                <div className="flex items-center justify-center h-screen bg-[#0a0a0a]">
                     <div className="flex flex-col items-center gap-4">
-                        <div className="w-10 h-10 border-4 border-gray-100 border-t-black rounded-full animate-spin"></div>
-                        <p className="animate-pulse">Connexion Cloud...</p>
+                        <div className="w-12 h-12 border-2 border-neutral-800 border-t-white rounded-full animate-spin"></div>
+                        <p className="text-neutral-500 font-medium tracking-widest text-xs uppercase animate-pulse">VainWoold Cloud Connect...</p>
                     </div>
                 </div>
             );
 
             return (
-                <div className="p-4 md:p-8 max-w-5xl mx-auto selection:bg-blue-100">
-                    <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div className="p-4 md:p-10 max-w-5xl mx-auto selection:bg-neutral-800 selection:text-white">
+                    <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                         <div>
-                            <h1 className="text-3xl font-bold flex items-center gap-3">
-                                <span className="p-2 bg-white rounded-xl notion-shadow text-black"><Icon name="layout" size={24} /></span>
-                                Vain-Budget Master
+                            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
+                                <span className="p-2.5 bg-neutral-900 rounded-xl border border-neutral-800"><Icon name="box" size={24} className="text-white" /></span>
+                                Gestion de Budget par VainWoold
                             </h1>
-                            <p className="text-sm text-gray-500 mt-1 italic">Données synchronisées Cloud</p>
+                            <p className="text-neutral-500 mt-2 font-medium">Tableau de bord financier privé et synchronisé.</p>
                         </div>
-                        <div className="flex flex-col items-end gap-2">
-                            <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-bold uppercase tracking-widest ${error ? 'bg-red-50 text-red-600 border-red-100' : 'bg-green-50 text-green-700 border-green-100'}`}>
-                                <span className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500 sync-badge'}`}></span>
-                                {error ? 'Erreur de synchro' : 'Cloud Live'}
+                        <div className="flex flex-col items-end gap-3">
+                            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-[0.15em] ${error ? 'bg-red-950/30 text-red-500 border-red-900/50' : 'bg-green-950/20 text-green-500 border-green-900/30'}`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${error ? 'bg-red-500' : 'bg-green-500 sync-badge'}`}></span>
+                                {error ? 'Sync Error' : 'Cloud Synchronized'}
                             </div>
                             <div className="flex gap-2">
-                                <button onClick={() => setShowImport(!showImport)} className="text-[10px] text-gray-500 hover:text-black font-bold bg-white border px-2 py-1 rounded shadow-sm hover:bg-gray-50 transition-all">
-                                    {showImport ? "Annuler" : "Restaurer un ID"}
+                                <button onClick={() => setShowImport(!showImport)} className="text-[10px] text-neutral-400 hover:text-white font-bold uppercase tracking-wider bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg transition-all">
+                                    {showImport ? "Cancel" : "Import ID"}
                                 </button>
                                 {localStorage.getItem('budget_master_uid') && (
-                                    <button onClick={resetId} className="text-[10px] text-red-500 hover:text-red-700 font-bold bg-white border px-2 py-1 rounded shadow-sm hover:bg-red-50 transition-all">
-                                        Réinitialiser ID
+                                    <button onClick={resetId} className="text-[10px] text-red-400 hover:text-red-300 font-bold uppercase tracking-wider bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg transition-all">
+                                        Reset ID
                                     </button>
                                 )}
-                                <button onClick={copyId} className="text-[10px] text-gray-400 font-mono bg-white border px-2 py-1 rounded hover:border-black transition-colors" title="Copier mon ID unique">
+                                <button onClick={copyId} className="text-[10px] text-neutral-500 font-mono bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg hover:border-neutral-600 transition-colors" title="Copy sync ID">
                                     ID: {user?.uid?.substring(0, 8)}...
                                 </button>
                             </div>
@@ -247,90 +286,99 @@
                     </header>
 
                     {error && (
-                        <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-xl flex gap-3 items-start animate-in fade-in duration-300">
-                            <Icon name="alert-circle" className="text-red-500 mt-0.5" />
+                        <div className="mb-8 p-4 bg-red-950/20 border border-red-900/30 rounded-2xl flex gap-3 items-start animate-in fade-in zoom-in duration-300">
+                            <Icon name="alert-triangle" className="text-red-500 mt-0.5" />
                             <div>
-                                <h3 className="text-sm font-bold text-red-800">Problème de synchronisation</h3>
-                                <p className="text-xs text-red-600 mt-1">{error}</p>
+                                <h3 className="text-sm font-bold text-red-400">Database Connection Issue</h3>
+                                <p className="text-xs text-red-300/70 mt-1">{error}</p>
                             </div>
                         </div>
                     )}
 
                     {showImport && (
-                        <div className="mb-8 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3 items-center animate-in slide-in-from-top-2 duration-300">
-                            <input type="text" placeholder="ID de synchronisation..." className="flex-1 p-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-200" value={importId} onChange={(e) => setImportId(e.target.value)} />
-                            <button onClick={handleImport} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-blue-700 transition-colors">Charger</button>
+                        <div className="mb-10 p-5 bg-neutral-900 border border-neutral-800 rounded-2xl flex gap-4 items-center animate-in slide-in-from-top-4 duration-300 shadow-2xl">
+                            <input type="text" placeholder="Enter synchronization ID..." className="flex-1 p-3 bg-neutral-950 border border-neutral-800 rounded-xl text-sm outline-none focus:border-neutral-600 transition-all text-white font-mono" value={importId} onChange={(e) => setImportId(e.target.value)} />
+                            <button onClick={handleImport} className="bg-white text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-neutral-200 active:scale-95 transition-all">Load Data</button>
                         </div>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                        <div className="bg-white p-6 rounded-2xl border border-gray-200 notion-shadow transition-transform hover:-translate-y-1">
-                            <div className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2"><Icon name="wallet" /> Solde</div>
-                            <div className={`text-3xl font-bold tracking-tight ${totals.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                        <div className="vw-card p-7 rounded-3xl">
+                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="activity" size={14} /> Global Balance</div>
+                            <div className={`text-4xl font-bold tracking-tighter ${totals.balance >= 0 ? 'text-white' : 'text-red-500'}`}>
                                 {totals.balance.toLocaleString('fr-FR')} €
                             </div>
                         </div>
-                        <div className="bg-white p-6 rounded-2xl border border-gray-200 notion-shadow transition-transform hover:-translate-y-1">
-                            <div className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2 text-green-500"><Icon name="trending-up" /> Revenus</div>
-                            <div className="text-3xl font-bold tracking-tight">{totals.income.toLocaleString('fr-FR')} €</div>
+                        <div className="vw-card p-7 rounded-3xl">
+                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="plus-circle" size={14} className="text-green-500" /> Total Incomes</div>
+                            <div className="text-4xl font-bold tracking-tighter text-white">{totals.income.toLocaleString('fr-FR')} €</div>
                         </div>
-                        <div className="bg-white p-6 rounded-2xl border border-gray-200 notion-shadow transition-transform hover:-translate-y-1">
-                            <div className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2 text-red-500"><Icon name="trending-down" /> Dépenses</div>
-                            <div className="text-3xl font-bold tracking-tight">{totals.expense.toLocaleString('fr-FR')} €</div>
+                        <div className="vw-card p-7 rounded-3xl">
+                            <div className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2"><Icon name="minus-circle" size={14} className="text-red-500" /> Total Expenses</div>
+                            <div className="text-4xl font-bold tracking-tighter text-white">{totals.expense.toLocaleString('fr-FR')} €</div>
                         </div>
                     </div>
 
-                    <section className="bg-white p-6 rounded-2xl border border-gray-200 mb-8 notion-shadow">
+                    <section className="vw-card p-7 rounded-3xl mb-10">
+                        <h2 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-2"><Icon name="plus" size={14} /> Quick Entry</h2>
                         <form onSubmit={addTransaction} className="grid grid-cols-1 md:grid-cols-5 gap-4">
                             <div className="md:col-span-2">
-                                <input type="text" placeholder="Libellé" className="w-full p-2.5 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-gray-200 transition-all" value={newLabel} onChange={e => setNewLabel(e.target.value)} />
+                                <input type="text" placeholder="Description" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newLabel} onChange={e => setNewLabel(e.target.value)} />
                             </div>
-                            <input type="number" placeholder="Montant" className="w-full p-2.5 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-gray-200 transition-all" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
-                            <select className="w-full p-2.5 bg-gray-50 border rounded-xl outline-none cursor-pointer" value={newType} onChange={e => {setNewType(e.target.value); setNewCategory(CATEGORIES[e.target.value][0]);}}>
-                                <option value="expense">Dépense</option>
-                                <option value="income">Revenu</option>
+                            <input type="number" placeholder="Amount (€)" className="vw-input w-full p-3 rounded-xl text-sm outline-none" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
+                            <select className="vw-input w-full p-3 rounded-xl text-sm outline-none cursor-pointer appearance-none" value={newType} onChange={e => {setNewType(e.target.value); setNewCategory(CATEGORIES[e.target.value][0]);}}>
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
                             </select>
-                            <button type="submit" className="bg-[#37352F] text-white font-bold p-2.5 rounded-xl hover:bg-black transition-all active:scale-95 shadow-md">Ajouter</button>
+                            <button type="submit" className="bg-white text-black font-black uppercase tracking-widest text-[10px] py-3 rounded-xl hover:bg-neutral-200 active:scale-95 transition-all shadow-lg">Add Entry</button>
                         </form>
                     </section>
 
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden notion-shadow">
-                        <table className="w-full text-left text-sm">
-                            <thead className="bg-gray-50/50 border-b">
-                                <tr>
-                                    <th className="px-6 py-4 font-bold text-gray-400 uppercase text-[10px] tracking-widest">Opération</th>
-                                    <th className="px-6 py-4 font-bold text-gray-400 uppercase text-[10px] tracking-widest">Catégorie</th>
-                                    <th className="px-6 py-4 font-bold text-gray-400 uppercase text-[10px] tracking-widest text-right">Montant</th>
-                                    <th className="px-6 py-4 text-right"></th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y">
-                                {transactions.length === 0 ? (
-                                    <tr><td colSpan="4" className="px-6 py-16 text-center text-gray-300 italic">Aucune transaction trouvée.</td></tr>
-                                ) : (
-                                    transactions.map(t => (
-                                        <tr key={t.id} className="hover:bg-gray-50 group transition-colors">
-                                            <td className="px-6 py-4">
-                                                <div className="font-semibold text-gray-800">{t.label}</div>
-                                                <div className="text-[10px] text-gray-400">{t.date}</div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span className="px-2.5 py-1 bg-gray-100 rounded-md text-[11px] font-medium border border-gray-200 text-gray-600">{t.category}</span>
-                                            </td>
-                                            <td className={`px-6 py-4 text-right font-bold ${t.type === 'income' ? 'text-green-600' : 'text-red-500'}`}>
-                                                {t.type === 'income' ? '+' : '-'} {t.amount.toLocaleString('fr-FR')} €
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <button onClick={() => deleteTransaction(t.id)} className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-500 p-2 transition-all hover:bg-red-50 rounded-lg">
-                                                    <Icon name="trash-2" size={14} />
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
+                    <div className="vw-card rounded-3xl overflow-hidden">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-sm">
+                                <thead>
+                                    <tr className="vw-table-header">
+                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest">Transaction</th>
+                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest">Category</th>
+                                        <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-right">Amount</th>
+                                        <th className="px-8 py-5 text-right"></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-neutral-900">
+                                    {transactions.length === 0 ? (
+                                        <tr><td colSpan="4" className="px-8 py-20 text-center text-neutral-600 italic font-medium">No transactions found in your cloud.</td></tr>
+                                    ) : (
+                                        transactions.map(t => (
+                                            <tr key={t.id} className="vw-row group">
+                                                <td className="px-8 py-5">
+                                                    <div className="font-bold text-white mb-0.5">{t.label}</div>
+                                                    <div className="text-[10px] text-neutral-600 font-mono tracking-tight">{t.date}</div>
+                                                </td>
+                                                <td className="px-8 py-5">
+                                                    <span className="px-2.5 py-1 bg-neutral-900 rounded-lg text-[10px] font-black uppercase tracking-wider border border-neutral-800 text-neutral-400">{t.category}</span>
+                                                </td>
+                                                <td className={`px-8 py-5 text-right font-black tabular-nums ${t.type === 'income' ? 'text-green-500' : 'text-white'}`}>
+                                                    {t.type === 'income' ? '+' : '-'} {t.amount.toLocaleString('fr-FR')} €
+                                                </td>
+                                                <td className="px-8 py-5 text-right">
+                                                    <button onClick={() => deleteTransaction(t.id)} className="opacity-0 group-hover:opacity-100 text-neutral-600 hover:text-red-500 p-2 transition-all hover:bg-red-500/10 rounded-lg">
+                                                        <Icon name="trash-2" size={14} />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                    <footer className="mt-20 mb-10 text-center">
+                        <div className="inline-block px-5 py-2 bg-neutral-900/50 border border-neutral-800 rounded-full text-[9px] font-black text-neutral-600 uppercase tracking-[0.3em]">
+                            Private Financial Cloud • {new Date().getFullYear()}
+                        </div>
+                    </footer>
                 </div>
             );
         };
