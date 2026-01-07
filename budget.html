@@ -78,12 +78,11 @@
                         const db = sdk.getFirestore(app);
                         const appId = 'budget-master-v1';
 
-                        // Tentative de connexion anonyme
                         try {
                             await sdk.signInAnonymously(auth);
                         } catch (authErr) {
                             if (authErr.code === 'auth/configuration-not-found') {
-                                setError("Veuillez activer 'Authentification Anonyme' dans votre console Firebase (Onglet Authentication > Sign-in method).");
+                                setError("Veuillez activer 'Authentification Anonyme' dans Firebase (Authentication > Sign-in method).");
                             } else {
                                 setError("Erreur d'authentification : " + authErr.message);
                             }
@@ -93,6 +92,7 @@
 
                         const unsubscribeAuth = sdk.onAuthStateChanged(auth, (firebaseUser) => {
                             if (firebaseUser) {
+                                // Priorité à l'ID importé sauvegardé dans le localStorage
                                 const effectiveUid = localStorage.getItem('budget_master_uid') || firebaseUser.uid;
                                 setUser({ ...firebaseUser, uid: effectiveUid });
                                 
@@ -105,10 +105,11 @@
                                     });
                                     items.sort((a, b) => b.timestamp - a.timestamp);
                                     setTransactions(items);
+                                    setError(null); // Clear errors if sync works
                                     setLoading(false);
                                 }, (err) => {
                                     console.error("Erreur Firestore:", err);
-                                    setError("Erreur de base de données. Vérifiez vos règles Firestore.");
+                                    setError("Erreur de base de données. Vérifiez que vos règles Firestore autorisent la lecture/écriture pour l'ID utilisé.");
                                     setLoading(false);
                                 });
                                 return () => unsubscribeSnap();
@@ -151,7 +152,10 @@
                     const colRef = sdk.collection(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions');
                     await sdk.addDoc(colRef, newItem);
                     setNewLabel(''); setNewAmount('');
-                } catch (e) { console.error("Erreur ajout :", e); }
+                } catch (e) { 
+                    console.error("Erreur ajout :", e);
+                    setError("Impossible d'ajouter. Vérifiez vos règles Firestore.");
+                }
             };
 
             const deleteTransaction = async (transactionId) => {
@@ -163,7 +167,10 @@
                 try {
                     const docRef = sdk.doc(db, 'artifacts', appId, 'public', 'data', 'budgets', user.uid, 'transactions', transactionId);
                     await sdk.deleteDoc(docRef);
-                } catch (e) { console.error("Erreur suppression :", e); }
+                } catch (e) { 
+                    console.error("Erreur suppression :", e);
+                    setError("Impossible de supprimer. Vérifiez vos règles Firestore.");
+                }
             };
 
             const totals = useMemo(() => {
@@ -183,6 +190,7 @@
                     el.select();
                     document.execCommand('copy');
                     document.body.removeChild(el);
+                    // On pourrait ajouter un petit toast ici
                 }
             };
 
@@ -193,21 +201,10 @@
                 }
             };
 
-            if (error) return (
-                <div className="flex items-center justify-center h-screen bg-[#FBFBFA] p-6 text-center">
-                    <div className="max-w-md bg-white p-8 rounded-2xl notion-shadow border border-red-100">
-                        <Icon name="alert-circle" size={48} className="text-red-500 mx-auto mb-4" />
-                        <h2 className="text-xl font-bold mb-2">Oups ! Problème de configuration</h2>
-                        <p className="text-gray-600 mb-6">{error}</p>
-                        <button 
-                            onClick={() => window.location.reload()}
-                            className="bg-[#37352F] text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition-all"
-                        >
-                            Réessayer
-                        </button>
-                    </div>
-                </div>
-            );
+            const resetId = () => {
+                localStorage.removeItem('budget_master_uid');
+                window.location.reload();
+            };
 
             if (loading) return (
                 <div className="flex items-center justify-center h-screen text-gray-400 font-medium italic">
@@ -223,20 +220,25 @@
                     <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                         <div>
                             <h1 className="text-3xl font-bold flex items-center gap-3">
-                                <span className="p-2 bg-white rounded-xl notion-shadow"><Icon name="layout" size={24} /></span>
+                                <span className="p-2 bg-white rounded-xl notion-shadow text-black"><Icon name="layout" size={24} /></span>
                                 Vain-Budget Master
                             </h1>
-                            <p className="text-sm text-gray-500 mt-1">Données Cloud Persistantes</p>
+                            <p className="text-sm text-gray-500 mt-1 italic">Données synchronisées Cloud</p>
                         </div>
                         <div className="flex flex-col items-end gap-2">
-                            <div className="flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full border border-green-100 text-[10px] font-bold uppercase tracking-widest">
-                                <span className="w-2 h-2 bg-green-500 rounded-full sync-badge"></span>
-                                Cloud Live
+                            <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-bold uppercase tracking-widest ${error ? 'bg-red-50 text-red-600 border-red-100' : 'bg-green-50 text-green-700 border-green-100'}`}>
+                                <span className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500 sync-badge'}`}></span>
+                                {error ? 'Erreur de synchro' : 'Cloud Live'}
                             </div>
                             <div className="flex gap-2">
                                 <button onClick={() => setShowImport(!showImport)} className="text-[10px] text-gray-500 hover:text-black font-bold bg-white border px-2 py-1 rounded shadow-sm hover:bg-gray-50 transition-all">
                                     {showImport ? "Annuler" : "Restaurer un ID"}
                                 </button>
+                                {localStorage.getItem('budget_master_uid') && (
+                                    <button onClick={resetId} className="text-[10px] text-red-500 hover:text-red-700 font-bold bg-white border px-2 py-1 rounded shadow-sm hover:bg-red-50 transition-all">
+                                        Réinitialiser ID
+                                    </button>
+                                )}
                                 <button onClick={copyId} className="text-[10px] text-gray-400 font-mono bg-white border px-2 py-1 rounded hover:border-black transition-colors" title="Copier mon ID unique">
                                     ID: {user?.uid?.substring(0, 8)}...
                                 </button>
@@ -244,10 +246,20 @@
                         </div>
                     </header>
 
+                    {error && (
+                        <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-xl flex gap-3 items-start animate-in fade-in duration-300">
+                            <Icon name="alert-circle" className="text-red-500 mt-0.5" />
+                            <div>
+                                <h3 className="text-sm font-bold text-red-800">Problème de synchronisation</h3>
+                                <p className="text-xs text-red-600 mt-1">{error}</p>
+                            </div>
+                        </div>
+                    )}
+
                     {showImport && (
-                        <div className="mb-8 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3 items-center animate-in fade-in duration-300">
+                        <div className="mb-8 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3 items-center animate-in slide-in-from-top-2 duration-300">
                             <input type="text" placeholder="ID de synchronisation..." className="flex-1 p-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-200" value={importId} onChange={(e) => setImportId(e.target.value)} />
-                            <button onClick={handleImport} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-blue-700">Charger</button>
+                            <button onClick={handleImport} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-blue-700 transition-colors">Charger</button>
                         </div>
                     )}
 
