@@ -351,18 +351,19 @@
     <section id="shop" class="py-24 px-6 bg-[#0f0f0f] border-t border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-400 text-[10px] font-bold uppercase tracking-[0.2em]">
-                    <i data-lucide="shopping-cart" class="w-3 h-3"></i>
-                    <span data-key="shop_badge">Limited Drops</span>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-700 text-neutral-400 text-[10px] font-bold uppercase tracking-[0.2em] relative">
+                    <span class="flex h-2 w-2 rounded-full bg-orange-500 mr-1 animate-pulse"></span>
+                    <span data-key="shop_badge">Coming Soon</span>
                 </div>
                 <h2 class="text-4xl md:text-5xl font-heading font-black text-white" data-key="shop_main_title">Official Store</h2>
-                <p class="text-neutral-500 max-w-xl mx-auto text-sm md:text-base" data-key="shop_desc">
-                    Premium apparel for the creators community. Quality first.
+                <p class="text-neutral-500 max-w-xl mx-auto text-sm md:text-base">
+                    <span data-key="shop_desc">Premium apparel for creators. Quality first.</span><br/>
+                    <span class="text-[10px] italic mt-2 inline-block opacity-60" data-key="shop_illustrative">* Prices and items are illustrative placeholders.</span>
                 </p>
             </div>
 
-            <div class="shop-container grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-20">
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
+            <div class="shop-container grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-20 grayscale opacity-50">
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
                     <div class="grain-overlay"></div>
                     <div class="shine"></div>
                     <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative">
@@ -376,48 +377,20 @@
                         </div>
                     </div>
                 </a>
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
-                    <div class="grain-overlay"></div>
-                    <div class="shine"></div>
-                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative">
-                        <i data-lucide="pocket" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i>
-                        <span class="absolute top-2 right-2 bg-red-600 text-[8px] font-bold px-2 py-0.5 rounded-full uppercase text-white">Sale</span>
-                    </div>
-                    <div class="space-y-1 relative z-10">
-                        <h3 class="text-xs md:text-sm font-bold text-white">Logo Hoodie</h3>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm md:text-lg font-black text-white">39.99€</span>
-                            <span class="text-[10px] md:text-xs text-neutral-500 line-through">65.00€</span>
-                        </div>
-                    </div>
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+                    <div class="grain-overlay"></div><div class="shine"></div>
+                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="pocket" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i></div>
+                    <div class="space-y-1 relative z-10"><h3 class="text-xs md:text-sm font-bold text-white">Logo Hoodie</h3><div class="flex items-center gap-2"><span class="text-sm md:text-lg font-black text-white">39.99€</span><span class="text-[10px] md:text-xs text-neutral-500 line-through">65.00€</span></div></div>
                 </a>
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
-                    <div class="grain-overlay"></div>
-                    <div class="shine"></div>
-                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative">
-                        <i data-lucide="box" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i>
-                    </div>
-                    <div class="space-y-1 relative z-10">
-                        <h3 class="text-xs md:text-sm font-bold text-white">Mystery Box</h3>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm md:text-lg font-black text-white">19.99€</span>
-                            <span class="text-[10px] md:text-xs text-neutral-500 line-through">35.00€</span>
-                        </div>
-                    </div>
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+                    <div class="grain-overlay"></div><div class="shine"></div>
+                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="box" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i></div>
+                    <div class="space-y-1 relative z-10"><h3 class="text-xs md:text-sm font-bold text-white">Mystery Box</h3><div class="flex items-center gap-2"><span class="text-sm md:text-lg font-black text-white">19.99€</span><span class="text-[10px] md:text-xs text-neutral-500 line-through">35.00€</span></div></div>
                 </a>
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
-                    <div class="grain-overlay"></div>
-                    <div class="shine"></div>
-                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative">
-                        <i data-lucide="tag" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i>
-                    </div>
-                    <div class="space-y-1 relative z-10">
-                        <h3 class="text-xs md:text-sm font-bold text-white">Acc. Pack</h3>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm md:text-lg font-black text-white">9.99€</span>
-                            <span class="text-[10px] md:text-xs text-neutral-500 line-through">15.00€</span>
-                        </div>
-                    </div>
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+                    <div class="grain-overlay"></div><div class="shine"></div>
+                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="tag" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i></div>
+                    <div class="space-y-1 relative z-10"><h3 class="text-xs md:text-sm font-bold text-white">Acc. Pack</h3><div class="flex items-center gap-2"><span class="text-sm md:text-lg font-black text-white">9.99€</span><span class="text-[10px] md:text-xs text-neutral-500 line-through">15.00€</span></div></div>
                 </a>
             </div>
 
@@ -430,7 +403,7 @@
         </div>
     </section>
 
-    <!-- MUSIC LOUNGE (Restored Design) -->
+    <!-- MUSIC LOUNGE -->
     <section id="music" class="py-16 px-6 bg-[#0f0f0f] border-t border-white/5">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-heading font-bold mb-10 text-center flex items-center justify-center gap-3">
@@ -520,9 +493,9 @@
         <div class="max-w-5xl mx-auto">
              <div class="relative overflow-hidden rounded-3xl border border-white/5 bg-neutral-900/40 p-8 md:p-12 mb-12">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="md:col-span-2 space-y-6">
+                    <div class="md:col-span-2 space-y-2">
                         <h2 class="text-3xl font-heading font-bold mb-6 text-white" data-key="bio_title">About Me</h2>
-                        <div class="space-y-4 text-neutral-400 leading-relaxed text-sm md:text-base">
+                        <div class="text-neutral-400 leading-relaxed text-sm md:text-base space-y-2">
                             <p data-key="bio_p1">My name is VainWoold and I'm 16 years old. I dream of becoming a film director. I'm passionate about cinema, marketing, animation, artificial intelligence, design/graphics, video games, and many other fields.</p>
                             <p data-key="bio_p2">I started 3D animation in 2025 and I continue to learn every day. I also practice stop motion, photography, graphic design, and many other disciplines. I'm also a Social Media Manager and Community Manager. Ambitious and determined, I see everything I undertake through to the end.</p>
                         </div>
@@ -576,7 +549,7 @@
                     <p class="text-xs font-mono" data-key="footer_tagline">Coded with HTML, Tailwind & JS.</p>
                     <p class="text-[10px] text-neutral-600 mt-4 uppercase tracking-tighter" data-key="footer_mod">Last modified: January 7, 2026</p>
                 </div>
-                <div><h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_site">Site</h4><ul class="space-y-2 text-sm"><li><a href="#home" class="hover:text-white transition-colors">Home</a></li><li><a href="#videos" class="hover:text-white transition-colors">Videos</a></li><li><a href="shop.html" class="hover:text-white transition-colors">Shop</a></li></ul></div>
+                <div><h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_site">Site</h4><ul class="space-y-2 text-sm"><li><a href="#home" class="hover:text-white transition-colors" data-key="nav_home">Home</a></li><li><a href="#videos" class="hover:text-white transition-colors" data-key="nav_videos">Videos</a></li><li><a href="shop.html" class="hover:text-white transition-colors">Shop</a></li></ul></div>
                 <div><h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_socials">Socials</h4><ul class="space-y-2 text-sm"><li><a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hover:text-white transition-colors">YouTube</a></li><li><a href="https://www.instagram.com/vainwoold.prod/" target="_blank" class="hover:text-white transition-colors">Instagram</a></li><li><a href="https://discord.gg/XaDb9RN5dr" target="_blank" class="hover:text-white transition-colors">Discord</a></li></ul></div>
                 <div><h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_contact">Contact</h4><ul class="space-y-2 text-sm"><li><a href="mailto:vainwoold@gmail.com" class="hover:text-blue-400 transition-colors">vainwoold@gmail.com</a></li></ul></div>
             </div>
@@ -611,17 +584,15 @@
             });
         });
 
-        // --- Music Player Logic (Detailed) ---
+        // --- Music Player Logic ---
         const playIcon = `<i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>`;
         const pauseIcon = `<i data-lucide="pause" class="w-5 h-5 fill-current"></i>`;
-
         document.querySelectorAll('.play-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const audioId = this.getAttribute('data-audio-id');
                 const audio = document.getElementById(audioId);
                 const progressBar = document.getElementById(audioId.replace('audio', 'progress'));
                 const durationDisplay = document.getElementById(audioId.replace('audio', 'duration'));
-                
                 document.querySelectorAll('audio').forEach(otherAudio => {
                     if (otherAudio.id !== audioId) {
                         otherAudio.pause();
@@ -629,28 +600,20 @@
                         if(otherBtn) { otherBtn.innerHTML = playIcon; lucide.createIcons(); }
                     }
                 });
-
                 if (audio.paused) { audio.play(); this.innerHTML = pauseIcon; } else { audio.pause(); this.innerHTML = playIcon; }
                 lucide.createIcons();
-
                 audio.addEventListener('timeupdate', () => {
                     if (!isNaN(audio.duration)) {
                         progressBar.value = (audio.currentTime / audio.duration) * 100;
-                        const mins = Math.floor(audio.currentTime / 60);
-                        const secs = Math.floor(audio.currentTime % 60);
+                        const mins = Math.floor(audio.currentTime / 60); const secs = Math.floor(audio.currentTime % 60);
                         document.getElementById(audioId.replace('audio', 'time')).textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
                     }
                 });
-
                 audio.addEventListener('loadedmetadata', () => {
-                    const mins = Math.floor(audio.duration / 60);
-                    const secs = Math.floor(audio.duration % 60);
+                    const mins = Math.floor(audio.duration / 60); const secs = Math.floor(audio.duration % 60);
                     durationDisplay.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
                 });
-
-                progressBar.addEventListener('input', () => {
-                    audio.currentTime = (progressBar.value / 100) * audio.duration;
-                });
+                progressBar.addEventListener('input', () => { audio.currentTime = (progressBar.value / 100) * audio.duration; });
             });
         });
 
@@ -668,9 +631,16 @@
                 section_videos: "Latest Episodes", section_other_videos: "Other Videos",
                 section_music: "Music Lounge", music_soon: "Coming Soon", btn_view_more: "View All",
                 section_stats: "Stats", stat_subs: "Subs", stat_views: "Views", stat_followers: "Followers", stat_members: "Members", btn_join: "Join",
-                bio_title: "About Me", bio_p1: "My name is VainWoold, 16 years old. Aspiring film director. Passionate about cinema, 3D, and AI.", bio_p2: "SMM and Community Manager. I see everything through to the end.",
+                bio_title: "About Me", 
+                bio_p1: "My name is VainWoold and I'm 16 years old. I dream of becoming a film director. I'm passionate about cinema, marketing, animation, artificial intelligence, design/graphics, video games, and many other fields.", 
+                bio_p2: "I started 3D animation in 2025 and I continue to learn every day. I also practice stop motion, photography, graphic design, and many other disciplines. I'm also a Social Media Manager and Community Manager. Ambitious and determined, I see everything I undertake through to the end.",
                 timeline_title: "My Journey", date_1: "Dec 31, 2024", event_1: "YouTube Creation", date_2: "Apr 12, 2025", event_2: "Lego Rebuild Launch", date_3: "Dec 31", event_3: "1 Year Anniversary",
-                skills_title: "Skills", shop_badge: "Limited Drops", shop_main_title: "Official Store", shop_desc: "Premium apparel for creators. Quality first.", shop_cta: "Enter Store",
+                skills_title: "Skills", 
+                shop_badge: "Coming Soon", 
+                shop_main_title: "Official Store", 
+                shop_desc: "Premium apparel for creators. Quality first.", 
+                shop_illustrative: "* Prices and items are illustrative placeholders.",
+                shop_cta: "Enter Store",
                 footer_tagline: "Coded with HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷", footer_mod: "Last modified: January 7, 2026"
             },
             fr: { 
@@ -681,9 +651,16 @@
                 section_videos: "Derniers Épisodes", section_other_videos: "Autres Vidéos",
                 section_music: "Lounge Musique", music_soon: "Bientôt", btn_view_more: "Tout voir",
                 section_stats: "Stats", stat_subs: "Abonnés", stat_views: "Vues", stat_followers: "Abonnés", stat_members: "Membres", btn_join: "Rejoindre",
-                bio_title: "À propos", bio_p1: "Je m’appelle VainWoold, j'ai 16 ans. Futur réalisateur. Passionné de cinéma, 3D et IA.", bio_p2: "SMM et Community Manager. Je vais au bout de tout ce que j’entreprends.",
+                bio_title: "À propos", 
+                bio_p1: "Je m'appelle VainWoold et j'ai 16 ans. Je rêve de devenir réalisateur. Je suis passionné par le cinéma, le marketing, l'animation, l'intelligence artificielle, le design/graphisme, les jeux vidéo et bien d'autres domaines.", 
+                bio_p2: "J'ai commencé l'animation 3D en 2025 et je continue d'apprendre chaque jour. Je pratique également le stop motion, la photographie, le graphisme et bien d'autres disciplines. Je suis aussi community manager. Ambitieux et déterminé, je vais toujours au bout de mes projets.",
                 timeline_title: "Mon Parcours", date_1: "31 Déc. 2024", event_1: "Création YouTube", date_2: "12 Avr. 2025", event_2: "Lancement Lego Rebuild", date_3: "31 Déc.", event_3: "1er Anniversaire",
-                skills_title: "Compétences", shop_badge: "Séries Limitées", shop_main_title: "Boutique Officielle", shop_desc: "Vêtements premium pour créateurs. La qualité d'abord.", shop_cta: "Entrer dans le shop",
+                skills_title: "Compétences", 
+                shop_badge: "Bientôt disponible", 
+                shop_main_title: "Boutique Officielle", 
+                shop_desc: "Vêtements premium pour créateurs. La qualité d'abord.", 
+                shop_illustrative: "* Les articles et prix affichés sont simplement illustratifs.",
+                shop_cta: "Entrer dans le shop",
                 footer_tagline: "Codé avec HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Réseaux", footer_contact: "Contact", footer_credit: "Fait avec ❤️ en France 🇫🇷", footer_mod: "Modifié le : 7 Janvier 2026"
             }
         };
