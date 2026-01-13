@@ -79,6 +79,25 @@
             z-index: 10;
         }
 
+        /* --- Portfolio Tooltip Bubble --- */
+        #portfolio-tooltip {
+            position: fixed;
+            pointer-events: none;
+            padding: 8px 16px;
+            background: white;
+            color: black;
+            border-radius: 18px;
+            border-bottom-left-radius: 2px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            opacity: 0;
+            transform: translate(10px, -100%) scale(0.8);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+
         /* --- Shop 3D Pokémon Style & Grain --- */
         .shop-container {
             perspective: 1500px;
@@ -147,6 +166,9 @@
 </head>
 <body class="antialiased selection:bg-white/20 selection:text-white bg-[#0f0f0f]">
 
+    <!-- Tooltip for Portfolio -->
+    <div id="portfolio-tooltip"></div>
+
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass-nav h-16 md:h-20">
         <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
@@ -170,9 +192,6 @@
                 </button>
                 <a href="shop.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Shop">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                </a>
-                <a href="check.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Check Calendar">
-                    <i data-lucide="calendar" class="w-5 h-5"></i>
                 </a>
                 <a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hidden sm:flex btn-tactile bg-white text-black px-5 py-2 text-sm font-bold items-center gap-2 rounded-full hover:bg-gray-200 transition-colors">
                     <span data-key="btn_sub">Subscribe</span>
@@ -347,7 +366,62 @@
         </div>
     </div>
 
-    <!-- BOUTIQUE SECTION -->
+    <!-- NEW PORTFOLIO SECTION (Freelance Graphic & Web Design) -->
+    <section id="mini-portfolio" class="py-24 px-6 bg-[#0a0a0a] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl md:text-5xl font-heading font-black text-white mb-6" data-key="port_title">Freelance Graphic & Web Designer</h2>
+                    <p class="text-neutral-400 text-sm md:text-base leading-relaxed" data-key="port_desc">
+                        Beyond animation, I design high-impact visuals and modern web experiences. My creations blend aesthetics with performance for bold brands.
+                    </p>
+                </div>
+                <div class="shrink-0 pb-2">
+                    <a href="portfolio.html" class="group btn-tactile inline-flex items-center gap-3 bg-white/5 border border-white/10 hover:border-white/30 px-6 py-3 rounded-full transition-all">
+                        <span class="text-xs font-bold uppercase tracking-widest text-white" data-key="port_btn">Discover More</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gallery Grid with different aspect ratios -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[250px]">
+                <!-- Item 1: Portrait -->
+                <div class="row-span-2 group relative overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 cursor-none portfolio-item" data-caption="Modern Poster Design">
+                    <div class="absolute inset-0 bg-neutral-800 animate-pulse opacity-20"></div>
+                    <!--  -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-10"><i data-lucide="image" class="w-12 h-12"></i></div>
+                </div>
+                <!-- Item 2: Landscape -->
+                <div class="col-span-2 group relative overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 cursor-none portfolio-item" data-caption="Responsive Web Interface">
+                    <!--  -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-10"><i data-lucide="layout" class="w-12 h-12"></i></div>
+                </div>
+                <!-- Item 3: Square -->
+                <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 cursor-none portfolio-item" data-caption="Minimalist Branding">
+                    <!--  -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-10"><i data-lucide="pen-tool" class="w-12 h-12"></i></div>
+                </div>
+                <!-- Item 4: Square -->
+                <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 cursor-none portfolio-item" data-caption="YouTube Thumbnail Strategy">
+                    <!--  -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-10"><i data-lucide="monitor-play" class="w-12 h-12"></i></div>
+                </div>
+                <!-- Item 5: Landscape -->
+                <div class="col-span-2 group relative overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 cursor-none portfolio-item" data-caption="High-Fidelity App UI">
+                    <!--  -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-10"><i data-lucide="smartphone" class="w-12 h-12"></i></div>
+                </div>
+                <!-- Item 6: Portrait (Half height on desktop grid) -->
+                <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 cursor-none portfolio-item" data-caption="Social Media Content">
+                    <!--  -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-10"><i data-lucide="instagram" class="w-12 h-12"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOUTIQUE SECTION (Cursor Fixed) -->
     <section id="shop" class="py-24 px-6 bg-[#0f0f0f] border-t border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 space-y-4">
@@ -362,8 +436,9 @@
                 </p>
             </div>
 
-            <div class="shop-container grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-20 grayscale opacity-50">
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+            <!-- Removed cursor-not-allowed and excessive grayscale for better UX -->
+            <div class="shop-container grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-20">
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
                     <div class="grain-overlay"></div>
                     <div class="shine"></div>
                     <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative">
@@ -377,17 +452,17 @@
                         </div>
                     </div>
                 </a>
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
                     <div class="grain-overlay"></div><div class="shine"></div>
-                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="pocket" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i></div>
+                    <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="pocket" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i><span class="absolute top-2 right-2 bg-red-600 text-[8px] font-bold px-2 py-0.5 rounded-full uppercase text-white">Sale</span></div>
                     <div class="space-y-1 relative z-10"><h3 class="text-xs md:text-sm font-bold text-white">Logo Hoodie</h3><div class="flex items-center gap-2"><span class="text-sm md:text-lg font-black text-white">39.99€</span><span class="text-[10px] md:text-xs text-neutral-500 line-through">65.00€</span></div></div>
                 </a>
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
                     <div class="grain-overlay"></div><div class="shine"></div>
                     <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="box" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i></div>
                     <div class="space-y-1 relative z-10"><h3 class="text-xs md:text-sm font-bold text-white">Mystery Box</h3><div class="flex items-center gap-2"><span class="text-sm md:text-lg font-black text-white">19.99€</span><span class="text-[10px] md:text-xs text-neutral-500 line-through">35.00€</span></div></div>
                 </a>
-                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4 cursor-not-allowed">
+                <a href="shop.html" class="shop-item-card rounded-2xl p-4 md:p-6 flex flex-col gap-4">
                     <div class="grain-overlay"></div><div class="shine"></div>
                     <div class="aspect-square rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center relative"><i data-lucide="tag" class="w-12 md:w-16 h-12 md:h-16 text-neutral-700"></i></div>
                     <div class="space-y-1 relative z-10"><h3 class="text-xs md:text-sm font-bold text-white">Acc. Pack</h3><div class="flex items-center gap-2"><span class="text-sm md:text-lg font-black text-white">9.99€</span><span class="text-[10px] md:text-xs text-neutral-500 line-through">15.00€</span></div></div>
@@ -564,6 +639,28 @@
     <script>
         lucide.createIcons();
 
+        // --- Interactive Portfolio Bubble ---
+        const tooltip = document.getElementById('portfolio-tooltip');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        portfolioItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                tooltip.style.opacity = '1';
+                tooltip.style.transform = 'translate(10px, -100%) scale(1)';
+                tooltip.textContent = item.getAttribute('data-caption');
+            });
+
+            item.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.clientX + 'px';
+                tooltip.style.top = e.clientY + 'px';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                tooltip.style.opacity = '0';
+                tooltip.style.transform = 'translate(10px, -100%) scale(0.8)';
+            });
+        });
+
         // --- Shop 3D Pokémon Interaction ---
         const shopCards = document.querySelectorAll('.shop-item-card');
         shopCards.forEach(card => {
@@ -634,6 +731,9 @@
                 bio_title: "About Me", 
                 bio_p1: "My name is VainWoold and I'm 16 years old. I dream of becoming a film director. I'm passionate about cinema, marketing, animation, artificial intelligence, design/graphics, video games, and many other fields.", 
                 bio_p2: "I started 3D animation in 2025 and I continue to learn every day. I also practice stop motion, photography, graphic design, and many other disciplines. I'm also a Social Media Manager and Community Manager. Ambitious and determined, I see everything I undertake through to the end.",
+                port_title: "Freelance Graphic & Web Designer",
+                port_desc: "Beyond animation, I design high-impact visuals and modern web experiences. My creations blend aesthetics with performance for bold brands.",
+                port_btn: "Discover More",
                 timeline_title: "My Journey", date_1: "Dec 31, 2024", event_1: "YouTube Creation", date_2: "Apr 12, 2025", event_2: "Lego Rebuild Launch", date_3: "Dec 31", event_3: "1 Year Anniversary",
                 skills_title: "Skills", 
                 shop_badge: "Coming Soon", 
@@ -654,6 +754,9 @@
                 bio_title: "À propos", 
                 bio_p1: "Je m'appelle VainWoold et j'ai 16 ans. Je rêve de devenir réalisateur. Je suis passionné par le cinéma, le marketing, l'animation, l'intelligence artificielle, le design/graphisme, les jeux vidéo et bien d'autres domaines.", 
                 bio_p2: "J'ai commencé l'animation 3D en 2025 et je continue d'apprendre chaque jour. Je pratique également le stop motion, la photographie, le graphisme et bien d'autres disciplines. Je suis aussi community manager. Ambitieux et déterminé, je vais toujours au bout de mes projets.",
+                port_title: "Graphiste & Webdesigner Freelance",
+                port_desc: "Au-delà de l'animation, je conçois des visuels à fort impact et des expériences web modernes. Mes créations allient esthétique et performance.",
+                port_btn: "Découvrir plus",
                 timeline_title: "Mon Parcours", date_1: "31 Déc. 2024", event_1: "Création YouTube", date_2: "12 Avr. 2025", event_2: "Lancement Lego Rebuild", date_3: "31 Déc.", event_3: "1er Anniversaire",
                 skills_title: "Compétences", 
                 shop_badge: "Bientôt disponible", 
