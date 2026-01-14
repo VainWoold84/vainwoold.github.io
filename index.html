@@ -154,9 +154,14 @@
             scroll-behavior: smooth;
         }
 
-        /* Slider Animations */
-        #portfolio-slider {
-            transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+        /* Gallery Item Hover */
+        .gallery-item {
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 10;
         }
     </style>
 </head>
@@ -304,63 +309,7 @@
         </div>
     </div>
 
-    <!-- OTHER VIDEOS SECTION -->
-    <div id="other-videos" class="relative w-full bg-[#0f0f0f] pb-12 md:pb-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <h3 class="text-lg font-bold text-white mb-8 flex items-center gap-2 pl-2" data-key="section_other_videos">
-                Other Videos
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="https://youtu.be/F2isQtE7mXY" target="_blank" class="video-card group">
-                    <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
-                        <img src="https://img.youtube.com/vi/F2isQtE7mXY/maxresdefault.jpg" class="h-full w-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-white text-white"></i></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm leading-tight group-hover:text-green-400 transition-colors">You don't have to be the Bad Guy...</h4>
-                        <div class="flex items-center gap-1.5 text-xs text-neutral-400 mt-1">
-                            <i data-lucide="eye" class="w-3 h-3"></i> 576 Views
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://youtu.be/9QlmenCGLFg" target="_blank" class="video-card group">
-                    <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
-                        <img src="https://img.youtube.com/vi/9QlmenCGLFg/maxresdefault.jpg" class="h-full w-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-white text-white"></i></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm leading-tight group-hover:text-purple-400 transition-colors">The SANDWICH EFFECT</h4>
-                        <div class="flex items-center gap-1.5 text-xs text-neutral-400 mt-1">
-                            <i data-lucide="eye" class="w-3 h-3"></i> 102 Views
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://youtu.be/xdNVNP0ximQ" target="_blank" class="video-card group">
-                    <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
-                        <img src="https://img.youtube.com/vi/xdNVNP0ximQ/maxresdefault.jpg" class="h-full w-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-white text-white"></i></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm leading-tight group-hover:text-orange-400 transition-colors">I don't like working... (LEGO Animation)</h4>
-                        <div class="flex items-center gap-1.5 text-[10px] text-neutral-400 mt-1">
-                            <i data-lucide="eye" class="w-3 h-3"></i> 1.2k Views
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- PORTFOLIO SECTION (Updated with Automatic Slider) -->
+    <!-- PORTFOLIO SECTION -->
     <section id="portfolio-section" class="py-24 px-6 bg-[#0a0a0a] border-t border-white/5">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
@@ -382,16 +331,25 @@
                 </div>
             </div>
 
-            <!-- Single Landscape Automatic Slider -->
-            <a href="portfolio.html" class="block relative w-full aspect-[21/9] md:aspect-[3/1] rounded-2xl border border-white/10 overflow-hidden gallery-item group bg-neutral-900">
-                <div id="portfolio-slider" class="flex h-full w-full">
-                    <img src="Minia_CHATGPT.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Minia+ChatGPT'" class="w-full h-full object-cover shrink-0">
-                    <img src="minia_gerk_culte.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Minia+Gerk+Culte'" class="w-full h-full object-cover shrink-0">
-                    <img src="minia_gerk_atari.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Minia+Gerk+Atari'" class="w-full h-full object-cover shrink-0">
-                    <img src="imageartplastiquefinal.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Art+Plastique'" class="w-full h-full object-cover shrink-0">
-                </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
-            </a>
+            <!-- 4 Images Gallery 16:9 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <a href="portfolio.html" class="gallery-item block relative aspect-video rounded-2xl border border-white/10 overflow-hidden bg-neutral-900 group">
+                    <img src="Minia_CHATGPT.png" onerror="this.src='https://via.placeholder.com/1920x1080/1a1a1a/ffffff?text=Minia+ChatGPT'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                </a>
+                <a href="portfolio.html" class="gallery-item block relative aspect-video rounded-2xl border border-white/10 overflow-hidden bg-neutral-900 group">
+                    <img src="minia_gerk_culte.png" onerror="this.src='https://via.placeholder.com/1920x1080/1a1a1a/ffffff?text=Minia+Gerk+Culte'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                </a>
+                <a href="portfolio.html" class="gallery-item block relative aspect-video rounded-2xl border border-white/10 overflow-hidden bg-neutral-900 group">
+                    <img src="minia_gerk_atari.png" onerror="this.src='https://via.placeholder.com/1920x1080/1a1a1a/ffffff?text=Minia+Gerk+Atari'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                </a>
+                <a href="portfolio.html" class="gallery-item block relative aspect-video rounded-2xl border border-white/10 overflow-hidden bg-neutral-900 group">
+                    <img src="imageartplastiquefinal.png" onerror="this.src='https://via.placeholder.com/1920x1080/1a1a1a/ffffff?text=Art+Plastique'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -633,16 +591,6 @@
                 tooltip.style.transform = 'translate(15px, -50%) scale(0.8)';
             });
         });
-
-        // --- Portfolio Automatic Slider Logic ---
-        let currentSlide = 0;
-        const slider = document.getElementById('portfolio-slider');
-        const totalSlides = 4;
-        
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }, 3500);
 
         // --- Shop 3D Pokémon Interaction ---
         const shopCards = document.querySelectorAll('.shop-item-card');
