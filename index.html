@@ -88,7 +88,7 @@
             white-space: nowrap;
         }
 
-        /* --- Video Cards Hover Effect (Restored) --- */
+        /* --- Video Cards Hover Effect --- */
         .video-card {
             transition: transform 0.3s ease, z-index 0s;
             z-index: 1;
@@ -154,14 +154,9 @@
             scroll-behavior: smooth;
         }
 
-        /* Gallery Item Hover */
-        .gallery-item {
-            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease;
-        }
-        .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            z-index: 10;
+        /* Slider Animations */
+        #portfolio-slider {
+            transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
         }
     </style>
 </head>
@@ -244,7 +239,7 @@
         </div>
     </div>
 
-    <!-- VIDEOS SECTION (Restored Animation) -->
+    <!-- VIDEOS SECTION -->
     <div id="videos" class="relative w-full bg-[#0f0f0f] py-12 md:py-16">
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2 pl-2" data-key="section_videos">
@@ -317,7 +312,6 @@
             </h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
                 <a href="https://youtu.be/F2isQtE7mXY" target="_blank" class="video-card group">
                     <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
                         <img src="https://img.youtube.com/vi/F2isQtE7mXY/maxresdefault.jpg" class="h-full w-full object-cover">
@@ -333,7 +327,6 @@
                     </div>
                 </a>
 
-                <!-- Card 2 -->
                 <a href="https://youtu.be/9QlmenCGLFg" target="_blank" class="video-card group">
                     <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
                         <img src="https://img.youtube.com/vi/9QlmenCGLFg/maxresdefault.jpg" class="h-full w-full object-cover">
@@ -349,7 +342,6 @@
                     </div>
                 </a>
 
-                <!-- Card 3 -->
                 <a href="https://youtu.be/xdNVNP0ximQ" target="_blank" class="video-card group">
                     <div class="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-800 mb-3">
                         <img src="https://img.youtube.com/vi/xdNVNP0ximQ/maxresdefault.jpg" class="h-full w-full object-cover">
@@ -368,7 +360,7 @@
         </div>
     </div>
 
-    <!-- PORTFOLIO PREVIEW SECTION (Interactive Gallery) -->
+    <!-- PORTFOLIO SECTION (Updated with Automatic Slider) -->
     <section id="portfolio-section" class="py-24 px-6 bg-[#0a0a0a] border-t border-white/5">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
@@ -379,7 +371,7 @@
                     </div>
                     <h2 class="text-3xl md:text-5xl font-heading font-black text-white mb-6" data-key="port_title">Graphic & Web Designer</h2>
                     <p class="text-neutral-400 text-sm md:text-base leading-relaxed" data-key="port_desc">
-                        Beyond animation, I design high-impact visuals and modern web experiences. My creations blend aesthetics with performance for bold brands.
+                        I am a freelance artist. I create professional thumbnails, posters, logos, and web designs at affordable prices.
                     </p>
                 </div>
                 <div class="shrink-0">
@@ -390,43 +382,20 @@
                 </div>
             </div>
 
-            <!-- Bento-style Gallery Grid (Updated Filenames) -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[300px]">
-                <!-- Landscape -->
-                <a href="portfolio.html" class="col-span-2 row-span-1 gallery-item relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 group">
-                    <img src="render_hiro.png" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center opacity-20"><i data-lucide="image" class="w-12 h-12"></i></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </a>
-                <!-- Portrait -->
-                <a href="portfolio.html" class="col-span-1 row-span-2 gallery-item relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 group">
-                    <img src="minia_CHATGPT.png" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center opacity-20"><i data-lucide="camera" class="w-12 h-12"></i></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </a>
-                <!-- Square -->
-                <a href="portfolio.html" class="col-span-1 row-span-1 gallery-item relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 group">
-                    <img src="VainWoold_logo.png" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center opacity-20"><i data-lucide="layout" class="w-12 h-12"></i></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </a>
-                <!-- Landscape -->
-                <a href="portfolio.html" class="col-span-2 row-span-1 gallery-item relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 group">
-                    <img src="minia_gerk_atari.png" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center opacity-20"><i data-lucide="code" class="w-12 h-12"></i></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </a>
-                <!-- Square -->
-                <a href="portfolio.html" class="col-span-1 row-span-1 gallery-item relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 group">
-                    <img src="minia_gerk_culte.png" onerror="this.style.display='none'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center opacity-20"><i data-lucide="type" class="w-12 h-12"></i></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </a>
-            </div>
+            <!-- Single Landscape Automatic Slider -->
+            <a href="portfolio.html" class="block relative w-full aspect-[21/9] md:aspect-[3/1] rounded-2xl border border-white/10 overflow-hidden gallery-item group bg-neutral-900">
+                <div id="portfolio-slider" class="flex h-full w-full">
+                    <img src="Minia_CHATGPT.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Minia+ChatGPT'" class="w-full h-full object-cover shrink-0">
+                    <img src="minia_gerk_culte.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Minia+Gerk+Culte'" class="w-full h-full object-cover shrink-0">
+                    <img src="minia_gerk_atari.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Minia+Gerk+Atari'" class="w-full h-full object-cover shrink-0">
+                    <img src="imageartplastiquefinal.png" onerror="this.src='https://via.placeholder.com/1200x400/1a1a1a/ffffff?text=Art+Plastique'" class="w-full h-full object-cover shrink-0">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+            </a>
         </div>
     </section>
 
-    <!-- BOUTIQUE SECTION (Cursor Fixed) -->
+    <!-- BOUTIQUE SECTION -->
     <section id="shop" class="py-24 px-6 bg-[#0f0f0f] border-t border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20 space-y-4">
@@ -665,6 +634,16 @@
             });
         });
 
+        // --- Portfolio Automatic Slider Logic ---
+        let currentSlide = 0;
+        const slider = document.getElementById('portfolio-slider');
+        const totalSlides = 4;
+        
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }, 3500);
+
         // --- Shop 3D Pokémon Interaction ---
         const shopCards = document.querySelectorAll('.shop-item-card');
         shopCards.forEach(card => {
@@ -737,7 +716,7 @@
                 bio_p2: "I started 3D animation in 2025 and I continue to learn every day. I also practice stop motion, photography, graphic design, and many other disciplines. I'm also a Social Media Manager and Community Manager. Ambitious and determined, I see everything I undertake through to the end.",
                 badge_freelance: "Freelance",
                 port_title: "Graphic & Web Designer",
-                port_desc: "Beyond animation, I design high-impact visuals and modern web experiences. My creations blend aesthetics with performance for bold brands.",
+                port_desc: "I am a freelance artist. I create professional thumbnails, posters, logos, and web designs at affordable prices.",
                 port_btn: "Discover My Works",
                 port_click: "Click to discover more",
                 timeline_title: "My Journey", date_1: "Dec 31, 2024", event_1: "YouTube Creation", date_2: "Apr 12, 2025", event_2: "Lego Rebuild Launch", date_3: "Dec 31", event_3: "1 Year Anniversary",
@@ -762,7 +741,7 @@
                 bio_p2: "J'ai commencé l'animation 3D en 2025 et je continue d'apprendre chaque jour. Je pratique également le stop motion, la photographie, le graphisme et bien d'autres disciplines. Je suis aussi community manager. Ambitieux et déterminé, je vais toujours au bout de mes projets.",
                 badge_freelance: "Freelance",
                 port_title: "Graphiste & Webdesigner",
-                port_desc: "Au-delà de l'animation, je conçois des visuels à fort impact et des expériences web modernes. Mes créations allient esthétique et performance.",
+                port_desc: "Je suis un artiste freelance. Je crée des miniatures, des affiches, des logos et du web design professionnel à petits prix.",
                 port_btn: "Découvrir mes travaux",
                 port_click: "Cliquez pour découvrir plus",
                 timeline_title: "Mon Parcours", date_1: "31 Déc. 2024", event_1: "Création YouTube", date_2: "12 Avr. 2025", event_2: "Lancement Lego Rebuild", date_3: "31 Déc.", event_3: "1er Anniversaire",
