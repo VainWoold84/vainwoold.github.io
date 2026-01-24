@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Services | VainWoold Studio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="logovain.jpg">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.015);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: 40px;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.05em;
+        }
+
+        /* --- Header Styles (From Source 2) --- */
+        .glass-nav {
+            background: rgba(15, 15, 15, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-tactile {
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .btn-tactile:active { transform: scale(0.96); }
+
+        /* --- Original Pricing Styles --- */
+        .glass-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 0.5px solid var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .featured-box {
+            background: rgba(255, 255, 255, 0.035);
+            border-color: rgba(255, 255, 255, 0.25);
+            z-index: 10;
+        }
+
+        .featured-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .text-subtle { color: #86868b; }
+        
+        .discount-pill {
+            background: #ffffff;
+            color: #000000;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 100px;
+            text-transform: uppercase;
+        }
+
+        .price-old {
+            text-decoration: line-through;
+            color: #424245;
+            font-weight: 500;
+        }
+
+        .btn-order {
+            background: #ffffff;
+            color: #000000;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-order:hover {
+            background: #f5f5f7;
+            transform: scale(1.02);
+        }
+
+        .small-terms {
+            font-size: 9px;
+            color: #424245;
+            letter-spacing: 0.02em;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        [data-key] { transition: opacity 0.2s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-white/10 selection:text-white">
+
+    <!-- Header (Integrated from Code 2) -->
+    <nav class="fixed top-0 w-full z-50 glass-nav h-16 md:h-20">
+        <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group shrink-0">
+                <img src="Copie de V (1) (1).png" alt="Logo VainWoold" class="h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-105">
+                <span class="font-heading font-bold text-lg tracking-tight hidden sm:block">VainWoold</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
+                <a href="index.html" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_home">Home</a>
+                <a href="index.html#videos" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_videos">Videos</a>
+                <a href="portfolio.html" class="px-4 py-2 text-sm font-medium text-white bg-white/10 rounded-full transition-all" data-key="nav_portfolio">Portfolio</a>
+                <a href="shop.html" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_shop">Shop</a>
+            </div>
+
+            <div class="flex items-center gap-3 md:gap-4 shrink-0">
+                <button id="lang-toggle" class="px-3 py-2 text-xs font-bold hover:bg-white/5 rounded-full transition-colors text-neutral-300 flex items-center gap-2">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                    <span id="current-lang">EN</span>
+                </button>
+                <a href="shop.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Shop">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </a>
+                <a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hidden sm:flex btn-tactile bg-white text-black px-5 py-2 text-sm font-bold items-center gap-2 rounded-full hover:bg-gray-200 transition-colors">
+                    <span data-key="btn_sub">Subscribe</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content (Original Pricing Page) -->
+    <main class="pt-40 pb-32">
+        
+        <!-- YOUTUBE THUMBNAILS SECTION -->
+        <section class="max-w-7xl mx-auto px-6 mb-48">
+            <div class="flex flex-col items-center text-center mb-24">
+                <span class="text-[10px] font-black text-neutral-500 uppercase tracking-[0.4em] mb-4" data-key="sec1_tag">Visual Engineering</span>
+                <h2 class="text-5xl md:text-7xl font-heading font-bold tracking-tighter mb-6" data-key="sec1_title">YouTube Excellence</h2>
+                <div class="h-[1px] w-24 bg-white/20"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                
+                <!-- Pack 1: Essential -->
+                <div class="md:col-span-3 glass-box p-10 rounded-[2.5rem] flex flex-col h-[500px]">
+                    <div class="flex-1">
+                        <p class="text-[9px] font-black text-neutral-500 uppercase tracking-widest mb-6">Standard Tier</p>
+                        <h3 class="text-3xl font-bold mb-4" data-key="pack1_title">Essential</h3>
+                        <div class="mb-8 flex items-end gap-3">
+                            <span class="price-old mb-2">15€</span>
+                            <div class="text-5xl font-black">10€</div>
+                            <span class="discount-pill mb-2">-33%</span>
+                        </div>
+                        <ul class="space-y-4 text-xs text-subtle" data-key="pack1_list">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> 1 High Resolution Design</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> 4K Export (PNG/JPG)</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> 1 Revision Cycle</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:vainwoold@gmail.com?subject=Order: Essential Thumbnail" class="btn-order py-4 rounded-2xl text-center text-xs uppercase tracking-widest" data-key="btn_order">Order Now</a>
+                </div>
+
+                <!-- Pack 2: Advanced Pro -->
+                <div class="md:col-span-6 glass-box featured-box p-12 rounded-[3rem] flex flex-col h-[600px] border-white/20">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-8">
+                            <p class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Most Popular</p>
+                            <i data-lucide="zap" class="w-6 h-6 text-white fill-current"></i>
+                        </div>
+                        <h3 class="text-5xl font-bold mb-4" data-key="pack2_title">Advanced Pro</h3>
+                        <p class="text-neutral-400 text-sm mb-10 max-w-sm" data-key="pack2_desc">The ultimate visual hook. Engineered to dominate the algorithm and skyrocket your CTR.</p>
+                        <div class="mb-12 flex items-end gap-4">
+                            <span class="price-old text-lg mb-2">35€</span>
+                            <div class="text-7xl font-black">20€</div>
+                            <span class="discount-pill text-xs px-3 py-1 mb-3">Limited Offer</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6 text-xs text-neutral-300" data-key="pack2_list">
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> High-End SFX & Lighting</li>
+                                <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> Subject Color Grading</li>
+                            </ul>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3 font-bold text-white"><i data-lucide="infinity" class="w-5 h-5"></i> Unlimited Revisions</li>
+                                <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> Strategy Consultation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="mailto:vainwoold@gmail.com?subject=Order: Advanced Pro Thumbnail" class="btn-order py-5 rounded-3xl text-center text-sm uppercase tracking-widest" data-key="btn_order">Order Now</a>
+                    <p class="small-terms mt-6 text-center" data-key="terms_pro">Priority processing. Delivered in 3-4 days max. Full usage rights included.</p>
+                </div>
+
+                <!-- Pack 3: Strategist -->
+                <div class="md:col-span-3 glass-box p-10 rounded-[2.5rem] flex flex-col h-[500px]">
+                    <div class="flex-1">
+                        <p class="text-[9px] font-black text-neutral-500 uppercase tracking-widest mb-6">Algorithm Tier</p>
+                        <h3 class="text-3xl font-bold mb-4" data-key="pack3_title">Strategist</h3>
+                        <div class="mb-8 flex items-end gap-3">
+                            <span class="price-old mb-2">50€</span>
+                            <div class="text-5xl font-black">30€</div>
+                        </div>
+                        <ul class="space-y-4 text-xs text-subtle" data-key="pack3_list">
+                            <li class="flex items-center gap-3 font-bold text-white"><i data-lucide="sparkles" class="w-4 h-4"></i> 3 SEO Optimized Titles</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> A/B Testing Variations</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> Market Trend Analysis</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:vainwoold@gmail.com?subject=Order: Strategist Pack" class="btn-order py-4 rounded-2xl text-center text-xs uppercase tracking-widest" data-key="btn_order">Order Now</a>
+                </div>
+            </div>
+            <p class="small-terms mt-16 text-center max-w-2xl mx-auto" data-key="disclaimer">
+                All visual projects require a 100% upfront payment via PayPal or Bank Transfer. Deliverables are digital only. No refunds after the design process has reached the 50% milestone.
+            </p>
+        </section>
+
+        <!-- WEB DESIGN SECTION -->
+        <section class="max-w-7xl mx-auto px-6 mb-20">
+            <div class="flex flex-col items-center text-center mb-24">
+                <span class="text-[10px] font-black text-neutral-500 uppercase tracking-[0.4em] mb-4" data-key="sec2_tag">Digital Architecture</span>
+                <h2 class="text-5xl md:text-7xl font-heading font-bold tracking-tighter mb-6" data-key="sec2_title">Web Solutions</h2>
+                <div class="h-[1px] w-24 bg-white/20"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                <!-- UI/UX Pro -->
+                <div class="md:col-span-4 glass-box p-12 rounded-[2.5rem] flex flex-col">
+                    <div class="flex-1">
+                        <p class="text-[9px] font-black text-neutral-500 uppercase tracking-widest mb-6">Interface Design</p>
+                        <h3 class="text-3xl font-bold mb-4" data-key="web1_title">Web Prototype</h3>
+                        <div class="mb-8 flex items-end gap-3">
+                            <span class="price-old mb-2">200€</span>
+                            <div class="text-5xl font-black">100€</div>
+                        </div>
+                        <ul class="space-y-4 text-xs text-subtle mb-10" data-key="web1_list">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> Complete UI Design (Figma)</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> Desktop & Mobile Layouts</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-white"></i> Full Style Guide & Assets</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:vainwoold@gmail.com?subject=Order: Web Prototype" class="btn-order py-4 rounded-2xl text-center text-xs uppercase tracking-widest" data-key="btn_order">Order Now</a>
+                    <p class="small-terms mt-6 text-center" data-key="web_terms_basic">Figma Source included. Delivered in 1 week.</p>
+                </div>
+
+                <!-- Ultimate Full Stack -->
+                <div class="md:col-span-8 glass-box featured-box p-12 rounded-[3rem] flex flex-col border-white/20 bg-white/[0.04]">
+                    <div class="flex flex-col md:flex-row gap-12 flex-1">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-8">
+                                <span class="discount-pill">The Gold Standard</span>
+                            </div>
+                            <h3 class="text-5xl md:text-6xl font-bold mb-4" data-key="web2_title">Ultimate Delivery</h3>
+                            <p class="text-neutral-400 text-sm mb-10 leading-relaxed" data-key="web2_desc">A turn-key solution for your business. From the first pixel of design to the last line of clean, optimized code. Hand-crafted for speed.</p>
+                            <div class="mb-12 flex items-end gap-4">
+                                <span class="price-old text-xl mb-2">750€</span>
+                                <div class="text-7xl md:text-8xl font-black">400€</div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/3 flex flex-col justify-center border-l border-white/10 pl-10">
+                            <ul class="space-y-5 text-xs text-neutral-200" data-key="web2_list">
+                                <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-white"></i> Full UI/UX Design</li>
+                                <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-white"></i> Clean HTML/CSS/JS Code</li>
+                                <li class="flex items-center gap-3 font-bold text-white"><i data-lucide="infinity" class="w-5 h-5"></i> Unlimited Revisions</li>
+                                <li class="flex items-center gap-3 font-bold text-white"><i data-lucide="shield-check" class="w-5 h-5"></i> 2 Months Bug Support</li>
+                                <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-white"></i> SEO Optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-12 flex flex-col md:flex-row items-center gap-6">
+                        <a href="mailto:vainwoold@gmail.com?subject=Order: Ultimate Web Delivery" class="flex-1 btn-order py-5 rounded-3xl text-center text-sm uppercase tracking-widest w-full" data-key="btn_order">Order Now</a>
+                        <p class="small-terms md:w-1/2 text-center md:text-left" data-key="web_terms_elite">Full ownership of source code. Delivered in 1 week. Deployment assistance included.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Integrated from Code 2) -->
+    <footer class="relative border-t border-white/10 bg-black pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-6 text-neutral-500">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1">
+                    <a href="index.html" class="flex items-center gap-2 mb-4 group">
+                        <img src="Copie de V (1) (1).png" alt="Logo" class="h-6 w-auto grayscale opacity-60 group-hover:grayscale-0 transition-all">
+                        <span class="font-heading font-bold text-md text-white">VainWoold</span>
+                    </a>
+                    <p class="text-xs font-mono" data-key="footer_tagline">Coded with HTML, Tailwind & JS.</p>
+                    <p class="text-[10px] text-neutral-600 mt-4 uppercase tracking-tighter" data-key="footer_mod">Last modified: January 7, 2026</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_site">Site</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-white transition-colors" data-key="nav_home">Home</a></li>
+                        <li><a href="index.html#videos" class="hover:text-white transition-colors" data-key="nav_videos">Videos</a></li>
+                        <li><a href="shop.html" class="hover:text-white transition-colors" data-key="nav_shop">Shop</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_socials">Socials</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hover:text-white transition-colors">YouTube</a></li>
+                        <li><a href="https://www.instagram.com/vainwoold.prod/" target="_blank" class="hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="https://discord.gg/XaDb9RN5dr" target="_blank" class="hover:text-white transition-colors">Discord</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_contact">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:vainwoold@gmail.com" class="hover:text-blue-400 transition-colors">vainwoold@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>© 2026 VainWoold Studio. All rights reserved.</p>
+                <span data-key="footer_credit">Fait avec ❤️ en France 🇫🇷</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // --- Translation Logic ---
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const currentLangSpan = document.getElementById('current-lang');
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                nav_home: "Home", nav_portfolio: "Portfolio", nav_shop: "Shop", nav_videos: "Videos", nav_about: "About",
+                btn_sub: "Subscribe", footer_tagline: "Coded with HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷", footer_mod: "Last modified: Jan 7, 2026",
+                sec1_tag: "Visual Engineering", sec1_title: "YouTube Excellence",
+                pack1_title: "Essential", pack1_list: "<li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> 1 High Resolution Design</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> 4K Export (PNG/JPG)</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> 1 Revision Cycle</li>",
+                pack2_title: "Advanced Pro", pack2_desc: "The ultimate visual hook. Engineered to dominate the algorithm and skyrocket your CTR.",
+                pack2_list: "<ul class='space-y-4'><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> High-End SFX & Lighting</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Subject Color Grading</li></ul><ul class='space-y-4'><li class='flex items-center gap-3 font-bold text-white'><i data-lucide='infinity' class='w-5 h-5'></i> Unlimited Revisions</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Strategy Consultation</li></ul>",
+                pack3_title: "Strategist", pack3_list: "<li class='flex items-center gap-3 font-bold text-white'><i data-lucide='sparkles' class='w-4 h-4'></i> 3 SEO Optimized Titles</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> A/B Testing Variations</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Market Trend Analysis</li>",
+                sec2_tag: "Digital Architecture", sec2_title: "Web Solutions",
+                web1_title: "Web Prototype", web1_list: "<li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Complete UI Design (Figma)</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Desktop & Mobile Layouts</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Full Style Guide & Assets</li>",
+                web2_title: "Ultimate Delivery", web2_desc: "A turn-key solution for your business. From the first pixel of design to the last line of clean, optimized code. Hand-crafted for speed.",
+                web2_list: "<li class='flex items-center gap-3'><i data-lucide='check' class='w-5 h-5 text-white'></i> Full UI/UX Design</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-5 h-5 text-white'></i> Clean HTML/CSS/JS Code</li><li class='flex items-center gap-3 font-bold text-white'><i data-lucide='infinity' class='w-5 h-5'></i> Unlimited Revisions</li><li class='flex items-center gap-3 font-bold text-white'><i data-lucide='shield-check' class='w-5 h-5'></i> 2 Months Bug Support</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-5 h-5 text-white'></i> SEO Optimization</li>",
+                btn_order: "Order Now", 
+                terms_pro: "Priority processing. Delivered in 3-4 days max. Full usage rights included.",
+                web_terms_basic: "Figma Source included. Delivered in 1 week.",
+                web_terms_elite: "Full ownership of source code. Delivered in 1 week. Deployment assistance included.",
+                disclaimer: "All visual projects require a 100% upfront payment via PayPal or Bank Transfer. Deliverables are digital only. No refunds after the design process has reached the 50% milestone."
+            },
+            fr: {
+                nav_home: "Accueil", nav_portfolio: "Portfolio", nav_shop: "Boutique", nav_videos: "Vidéos", nav_about: "À propos",
+                btn_sub: "S'abonner", footer_tagline: "Codé avec HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Réseaux", footer_contact: "Contact", footer_credit: "Fait avec ❤️ en France 🇫🇷", footer_mod: "Modifié le : 7 Janvier 2026",
+                sec1_tag: "Ingénierie Visuelle", sec1_title: "Excellence YouTube",
+                pack1_title: "L'Essentiel", pack1_list: "<li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> 1 Design Haute Définition</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Exportation 4K (PNG/JPG)</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> 1 Cycle de Révision</li>",
+                pack2_title: "Avancé Pro", pack2_desc: "Le graal visuel. Conçu pour dominer l'algorithme et faire exploser votre taux de clic.",
+                pack2_list: "<ul class='space-y-4'><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> SFX & Éclairage Haut de Gamme</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Colorimétrie avancée</li></ul><ul class='space-y-4'><li class='flex items-center gap-3 font-bold text-white'><i data-lucide='infinity' class='w-5 h-5'></i> Retouches Illimitées</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Conseils Stratégiques</li></ul>",
+                pack3_title: "Stratégiste", pack3_list: "<li class='flex items-center gap-3 font-bold text-white'><i data-lucide='sparkles' class='w-4 h-4'></i> 3 Titres Optimisés (SEO)</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Variations pour A/B Testing</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Analyse de Tendances</li>",
+                sec2_tag: "Architecture Digitale", sec2_title: "Solutions Web",
+                web1_title: "Prototype Web", web1_list: "<li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Design UI Complet (Figma)</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Layouts Mobile & Desktop</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-4 h-4 text-white'></i> Guide de Style & Assets</li>",
+                web2_title: "Ultimate Delivery", web2_desc: "Une solution clé en main. Du premier pixel de design à la dernière ligne de code optimisée. Taillé pour la vitesse.",
+                web2_list: "<li class='flex items-center gap-3'><i data-lucide='check' class='w-5 h-5 text-white'></i> Design UI/UX Complet</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-5 h-5 text-white'></i> Code HTML/CSS/JS Pro</li><li class='flex items-center gap-3 font-bold text-white'><i data-lucide='infinity' class='w-5 h-5'></i> Retouches Illimitées</li><li class='flex items-center gap-3 font-bold text-white'><i data-lucide='shield-check' class='w-5 h-5'></i> 2 Mois de Support Bugs</li><li class='flex items-center gap-3'><i data-lucide='check' class='w-5 h-5 text-white'></i> Optimisation SEO</li>",
+                btn_order: "Commander", 
+                terms_pro: "Traitement prioritaire. Livré en 3-4 jours max. Droits d'utilisation complets.",
+                web_terms_basic: "Source Figma incluse. Livré en 1 semaine.",
+                web_terms_elite: "Pleine propriété du code source. Livré en 1 semaine. Assistance au déploiement incluse.",
+                disclaimer: "Tous les projets visuels requièrent un paiement de 100% à l'avance via PayPal ou Virement Bancaire. Pas de remboursement après 50% du travail effectué."
+            }
+        };
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            currentLangSpan.textContent = currentLang.toUpperCase();
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) {
+                    el.style.opacity = 0;
+                    setTimeout(() => { 
+                        el.innerHTML = translations[currentLang][key]; 
+                        el.style.opacity = 1; 
+                        lucide.createIcons();
+                    }, 200);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
