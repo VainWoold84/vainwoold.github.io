@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | VainWoold</title>
-    <meta name="description" content="Official VainWoold Shop - Coming Soon 2026.">
+    <title>Coming Soon | VainWoold Studio</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="logovain.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="logovain.jpg">
-    <link rel="apple-touch-icon" href="logovain.jpg">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,28 +14,25 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* --- Global Settings --- */
         body {
-            background-color: #0f0f0f;
+            background-color: #000000;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, h4, .font-heading {
+        h1, .font-heading {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.05em;
         }
 
-        /* --- Header Constant Style --- */
+        /* --- Header Styles --- */
         .glass-nav {
             background: rgba(15, 15, 15, 0.3);
             backdrop-filter: blur(12px);
@@ -47,114 +41,39 @@
             transition: all 0.3s ease;
         }
 
-        /* --- Buttons --- */
         .btn-tactile {
             transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
         .btn-tactile:active { transform: scale(0.96); }
 
-        /* --- 3D Card Layout (New Design) --- */
-        .cards-container {
-            perspective: 1200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-            position: relative;
-        }
-
-        .card-3d {
-            position: absolute;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Positions initiales (style image ref) */
-        .card-left {
-            width: 280px;
-            height: 280px;
-            transform: translateX(-160px) scale(0.85) rotateY(15deg) rotateZ(-2deg);
-            z-index: 10;
-            opacity: 0.7;
-            filter: brightness(0.6);
-        }
-
-        .card-right {
-            width: 280px;
-            height: 280px;
-            transform: translateX(160px) scale(0.85) rotateY(-15deg) rotateZ(2deg);
-            z-index: 10;
-            opacity: 0.7;
-            filter: brightness(0.6);
-        }
-
-        .card-center {
-            width: 340px;
-            height: 340px;
-            transform: translateX(0) scale(1) rotateY(0);
-            z-index: 20;
-            box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
-        }
-
-        /* Interaction au survol du conteneur */
-        .cards-container:hover .card-left {
-            transform: translateX(-220px) scale(0.9) rotateY(20deg);
-            opacity: 0.9;
-            filter: brightness(0.8);
-        }
-
-        .cards-container:hover .card-right {
-            transform: translateX(220px) scale(0.9) rotateY(-20deg);
-            opacity: 0.9;
-            filter: brightness(0.8);
-        }
-        
-        .cards-container:hover .card-center {
-            transform: scale(1.05);
-        }
-
+        [data-key] { transition: opacity 0.2s ease; }
     </style>
 </head>
-<body class="antialiased selection:bg-white/20 selection:text-white bg-[#0f0f0f]">
+<body class="antialiased selection:bg-white/10 selection:text-white min-h-screen flex flex-col">
 
-    <!-- Navbar -->
+    <!-- Header -->
     <nav class="fixed top-0 w-full z-50 glass-nav h-16 md:h-20">
         <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
-            <!-- Logo -->
             <a href="index.html" class="flex items-center gap-3 group shrink-0">
                 <img src="Copie de V (1) (1).png" alt="Logo VainWoold" class="h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-105">
                 <span class="font-heading font-bold text-lg tracking-tight hidden sm:block">VainWoold</span>
             </a>
 
-            <!-- Centered Menu -->
             <div class="hidden md:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
-                <a href="index.html#home" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_home">Home</a>
+                <a href="index.html" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_home">Home</a>
                 <a href="index.html#videos" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_videos">Videos</a>
-                <a href="index.html#music" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_music">Music</a>
-                <a href="index.html#stats" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_stats">Stats</a>
-                <a href="index.html#about" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_about">About</a>
+                <a href="portfolio.html" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_portfolio">Portfolio</a>
+                <a href="shop.html" class="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" data-key="nav_shop">Shop</a>
             </div>
 
-            <!-- Right Actions -->
             <div class="flex items-center gap-3 md:gap-4 shrink-0">
                 <button id="lang-toggle" class="px-3 py-2 text-xs font-bold hover:bg-white/5 rounded-full transition-colors text-neutral-300 flex items-center gap-2">
                     <i data-lucide="globe" class="w-4 h-4"></i>
                     <span id="current-lang">EN</span>
                 </button>
-                
-                <!-- BOUTON SHOP (Actif) -->
-                <a href="#" class="p-2 text-white bg-white/10 rounded-full transition-all cursor-default" title="Shop">
+                <a href="shop.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Shop">
                     <i data-lucide="shopping-bag" class="w-5 h-5"></i>
                 </a>
-
-                <!-- BOUTON CALENDRIER -->
-                <a href="check.html" class="p-2 text-neutral-300 hover:text-white hover:bg-white/5 rounded-full transition-all" title="Check Calendar">
-                    <i data-lucide="calendar" class="w-5 h-5"></i>
-                </a>
-
                 <a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hidden sm:flex btn-tactile bg-white text-black px-5 py-2 text-sm font-bold items-center gap-2 rounded-full hover:bg-gray-200 transition-colors">
                     <span data-key="btn_sub">Subscribe</span>
                 </a>
@@ -162,197 +81,95 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow flex flex-col items-center justify-start pt-28 pb-20 px-6 relative overflow-hidden">
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center px-6">
+        <h1 class="text-6xl md:text-8xl font-heading font-black mb-10 tracking-tighter" data-key="cs_simple">COMING SOON</h1>
         
-        <!-- Background Elements -->
-        <div class="absolute inset-0 z-0 pointer-events-none">
-             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-600/5 rounded-full blur-[120px]"></div>
-        </div>
-
-        <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
-            
-            <!-- 3D CARD INTERACTIVE HERO -->
-            <div class="cards-container mb-12 w-full max-w-4xl">
-                
-                <!-- Left Card (Lego Rebuild) -->
-                <div class="card-3d card-left bg-neutral-900">
-                     <img src="legorebuildimage.jpg" class="w-full h-full object-cover opacity-80" alt="Product Mockup 1">
-                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                </div>
-
-                <!-- Right Card (Nouvelle Image 1) -->
-                <div class="card-3d card-right bg-neutral-900">
-                    <img src="image_8756bb.png" class="w-full h-full object-cover opacity-80" alt="Product Mockup 2">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                </div>
-
-                <!-- Center Card (Nouvelle Image 2) -->
-                <div class="card-3d card-center bg-neutral-800">
-                    <img src="MINIA (2).jpg" class="w-full h-full object-cover" alt="Main Product">
-                </div>
-
-            </div>
-
-            <!-- Title & CTA -->
-            <h1 class="text-4xl md:text-5xl font-heading font-bold text-center mb-4 tracking-tight text-white">
-                VainWoold Shop
-            </h1>
-            
-            <!-- Bouton "Coming Soon" corrigé -->
-            <div class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold rounded-full text-sm mt-2">
-                <span data-key="coming_soon">Coming Soon</span>
-                <span class="w-1 h-1 bg-black rounded-full mx-1"></span>
-                <span>2026</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
-            </div>
-
-
-            <!-- STATIC SKELETON LOADERS (No Pulse) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full opacity-40 mt-20">
-                
-                <!-- Static Item 1 -->
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
-                    <div class="space-y-2">
-                        <div class="h-4 bg-neutral-800 rounded w-3/4"></div>
-                        <div class="h-3 bg-neutral-800 rounded w-1/4"></div>
-                    </div>
-                </div>
-
-                <!-- Static Item 2 -->
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
-                    <div class="space-y-2">
-                        <div class="h-4 bg-neutral-800 rounded w-1/2"></div>
-                        <div class="h-3 bg-neutral-800 rounded w-1/3"></div>
-                    </div>
-                </div>
-
-                <!-- Static Item 3 -->
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
-                    <div class="space-y-2">
-                        <div class="h-4 bg-neutral-800 rounded w-2/3"></div>
-                        <div class="h-3 bg-neutral-800 rounded w-1/4"></div>
-                    </div>
-                </div>
-
-                <!-- Static Item 4 -->
-                <div class="space-y-4">
-                    <div class="aspect-[4/5] bg-neutral-800 rounded-xl w-full relative border border-white/5"></div>
-                    <div class="space-y-2">
-                        <div class="h-4 bg-neutral-800 rounded w-3/5"></div>
-                        <div class="h-3 bg-neutral-800 rounded w-1/5"></div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+        <a href="index.html" class="btn-tactile px-10 py-4 bg-white text-black rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:bg-neutral-200" data-key="cs_btn_home">
+            Back to Home
+        </a>
     </main>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="relative border-t border-white/10 bg-black pt-16 pb-10">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6 text-neutral-500">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                
-                <!-- Brand -->
                 <div class="col-span-1">
                     <a href="index.html" class="flex items-center gap-2 mb-4 group">
-                        <img src="Copie de V (1) (1).png" alt="Logo" class="h-6 w-auto grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
-                        <span class="font-heading font-bold text-md">VainWoold</span>
+                        <img src="Copie de V (1) (1).png" alt="Logo" class="h-6 w-auto grayscale opacity-60 group-hover:grayscale-0 transition-all">
+                        <span class="font-heading font-bold text-md text-white">VainWoold</span>
                     </a>
-                    <p class="text-xs text-neutral-500 leading-relaxed font-mono" data-key="footer_tagline">
-                        Coded with HTML, Tailwind CSS & JS. Hosted on GitHub.
-                    </p>
+                    <p class="text-xs font-mono" data-key="footer_tagline">Coded with HTML, Tailwind & JS.</p>
+                    <p class="text-[10px] text-neutral-600 mt-4 uppercase tracking-tighter" data-key="footer_mod">Last modified: January 7, 2026</p>
                 </div>
-
-                <!-- Site -->
                 <div>
-                    <h4 class="font-bold text-xs uppercase tracking-wider text-neutral-300 mb-4" data-key="footer_site">Site</h4>
-                    <ul class="space-y-2 text-sm text-neutral-500">
-                        <li><a href="index.html#home" class="hover:text-white transition-colors" data-key="nav_home">Home</a></li>
+                    <h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_site">Site</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-white transition-colors" data-key="nav_home">Home</a></li>
                         <li><a href="index.html#videos" class="hover:text-white transition-colors" data-key="nav_videos">Videos</a></li>
-                        <li><a href="index.html#music" class="hover:text-white transition-colors" data-key="nav_music">Music</a></li>
-                        <li><a href="index.html#stats" class="hover:text-white transition-colors" data-key="nav_stats">Stats</a></li>
-                        <li><a href="index.html#about" class="hover:text-white transition-colors" data-key="nav_about">About</a></li>
-                        <li><a href="#" class="text-white font-bold transition-colors" data-key="nav_shop">Shop</a></li>
-                        <li><a href="check.html" class="hover:text-white transition-colors">Check</a></li>
+                        <li><a href="shop.html" class="hover:text-white transition-colors" data-key="nav_shop">Shop</a></li>
                     </ul>
                 </div>
-
-                 <!-- Socials -->
                 <div>
-                    <h4 class="font-bold text-xs uppercase tracking-wider text-neutral-300 mb-4" data-key="footer_socials">Socials</h4>
-                    <ul class="space-y-2 text-sm text-neutral-500">
+                    <h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_socials">Socials</h4>
+                    <ul class="space-y-2 text-sm">
                         <li><a href="https://www.youtube.com/@VainWooldYT" target="_blank" class="hover:text-white transition-colors">YouTube</a></li>
-                        <li><a href="https://www.tiktok.com/@vainwoold" target="_blank" class="hover:text-white transition-colors">TikTok</a></li>
                         <li><a href="https://www.instagram.com/vainwoold.prod/" target="_blank" class="hover:text-white transition-colors">Instagram</a></li>
                         <li><a href="https://discord.gg/XaDb9RN5dr" target="_blank" class="hover:text-white transition-colors">Discord</a></li>
                     </ul>
                 </div>
-
-                <!-- Contact -->
                 <div>
-                    <h4 class="font-bold text-xs uppercase tracking-wider text-neutral-300 mb-4" data-key="footer_contact">Contact</h4>
-                    <ul class="space-y-2 text-sm text-neutral-500">
-                        <li><a href="mailto:vainwoold@gmail.com" class="hover:text-blue-400 transition-colors flex items-center gap-2"><i data-lucide="mail" class="w-3 h-3"></i> vainwoold@gmail.com</a></li>
+                    <h4 class="font-bold text-xs uppercase text-neutral-300 mb-4" data-key="footer_contact">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:vainwoold@gmail.com" class="hover:text-blue-400 transition-colors">vainwoold@gmail.com</a></li>
                     </ul>
                 </div>
             </div>
-
-            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs text-neutral-600">© 2025 VainWoold. All rights reserved.</p>
-                <div class="flex items-center gap-2 text-xs text-neutral-600">
-                    <span data-key="footer_credit">Fait avec ❤️ en France 🇫🇷</span>
-                </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>© 2026 VainWoold Studio. All rights reserved.</p>
+                <span data-key="footer_credit">Fait avec ❤️ en France 🇫🇷</span>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
         lucide.createIcons();
 
+        // --- Translation Logic ---
         const langToggleBtn = document.getElementById('lang-toggle');
         const currentLangSpan = document.getElementById('current-lang');
         let currentLang = 'en';
 
         const translations = {
-            en: { 
-                nav_home: "Home", nav_videos: "Videos", nav_stats: "Stats", nav_about: "About", nav_shop: "Shop", nav_music: "Music",
-                btn_sub: "Subscribe",
-                coming_soon: "Coming Soon",
-                footer_tagline: "Coded with HTML, Tailwind CSS & JS. Hosted on GitHub.",
-                footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷"
+            en: {
+                nav_home: "Home", nav_portfolio: "Portfolio", nav_shop: "Shop", nav_videos: "Videos",
+                btn_sub: "Subscribe", footer_tagline: "Coded with HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷", footer_mod: "Last modified: Jan 7, 2026",
+                cs_simple: "COMING SOON",
+                cs_btn_home: "Back to Home"
             },
-            fr: { 
-                nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_shop: "Boutique", nav_music: "Musique",
-                btn_sub: "S'abonner",
-                coming_soon: "Bientôt Disponible",
-                footer_tagline: "Codé avec HTML, Tailwind CSS & JS. Hébergé sur GitHub.",
-                footer_site: "Site", footer_socials: "Réseaux", footer_contact: "Contact", footer_credit: "Fait avec ❤️ en France 🇫🇷"
+            fr: {
+                nav_home: "Accueil", nav_portfolio: "Portfolio", nav_shop: "Boutique", nav_videos: "Vidéos",
+                btn_sub: "S'abonner", footer_tagline: "Codé avec HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Réseaux", footer_contact: "Contact", footer_credit: "Fait avec ❤️ en France 🇫🇷", footer_mod: "Modifié le : 7 Janvier 2026",
+                cs_simple: "BIENTÔT DISPONIBLE",
+                cs_btn_home: "Retour à l'accueil"
             }
         };
 
         langToggleBtn.addEventListener('click', () => {
             currentLang = currentLang === 'en' ? 'fr' : 'en';
             currentLangSpan.textContent = currentLang.toUpperCase();
-            
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (translations[currentLang][key]) {
                     el.style.opacity = 0;
-                    setTimeout(() => {
-                        el.innerHTML = translations[currentLang][key];
-                        el.style.opacity = 1;
+                    setTimeout(() => { 
+                        el.innerHTML = translations[currentLang][key]; 
+                        el.style.opacity = 1; 
+                        lucide.createIcons();
                     }, 200);
                 }
             });
         });
-        
-        document.head.insertAdjacentHTML("beforeend", `<style>[data-key] { transition: opacity 0.2s ease; }</style>`);
     </script>
 </body>
 </html>
