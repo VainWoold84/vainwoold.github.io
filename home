@@ -656,20 +656,20 @@
                 section_music: "Music Lounge", music_soon: "Coming Soon", btn_view_more: "View All",
                 section_stats: "Stats", stat_subs: "Subs", stat_views: "Views", stat_followers: "Followers", stat_members: "Members", btn_join: "Join",
                 bio_title: "About Me", 
-                bio_p1: "My name is VainWoold and I'm 16 years old. I dream of becoming a film director. I'm passionate about cinema, marketing, animation, artificial intelligence, design/graphics, video games, and many other fields.", 
+                bio_p1: "My name is VainWoold and I'm 17 years old. I dream of becoming a film director. I'm passionate about cinema, marketing, animation, artificial intelligence, design/graphics, video games, and many other fields.", 
                 bio_p2: "I started 3D animation in 2025 and I continue to learn every day. I also practice stop motion, photography, graphic design, and many other disciplines. I'm also a Social Media Manager and Community Manager. Ambitious and determined, I see everything I undertake through to the end.",
                 port_title: "Graphic & Web Designer",
-                port_desc: "As a dedicated freelance artist, I specialize in crafting high-impact thumbnails, cinematic posters, unique logos, and modern web designs. I combine professional quality with accessible pricing to bring your vision to life.",
+                port_desc: "As a dedicated freelance artist, I specialize in crafting high-impact thumbnails, cinematic posters, unique logos, and modern web designs.",
                 port_btn: "Discover My Works",
                 port_click: "Click to discover more",
                 timeline_title: "My Journey", date_1: "Dec 31, 2024", event_1: "YouTube Creation", date_2: "Apr 12, 2025", event_2: "Lego Rebuild Launch", date_3: "Dec 31", event_3: "1 Year Anniversary",
                 skills_title: "Skills", 
                 shop_badge: "Coming Soon", 
                 shop_main_title: "Official Store", 
-                shop_desc: "Premium apparel for creators. Quality first.", 
+                shop_desc: "The VainWoold Shop", 
                 shop_illustrative: "* Prices and items are illustrative placeholders.",
                 shop_cta: "Enter Store",
-                footer_tagline: "Coded with HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷", footer_mod: "Last modified: January 7, 2026"
+                footer_tagline: "Coded with HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Socials", footer_contact: "Contact", footer_credit: "Made with ❤️ in France 🇫🇷", footer_mod: "Last modified: February 18, 2026"
             },
             fr: { 
                 nav_home: "Accueil", nav_videos: "Vidéos", nav_stats: "Stats", nav_about: "À propos", nav_music: "Musique", nav_shop: "Boutique", nav_portfolio: "Portfolio",
@@ -680,20 +680,20 @@
                 section_music: "Lounge Musique", music_soon: "Bientôt", btn_view_more: "Tout voir",
                 section_stats: "Stats", stat_subs: "Abonnés", stat_views: "Vues", stat_followers: "Abonnés", stat_members: "Membres", btn_join: "Rejoindre",
                 bio_title: "À propos", 
-                bio_p1: "Je m'appelle VainWoold et j'ai 16 ans. Je rêve de devenir réalisateur. Je suis passionné par le cinéma, le marketing, l'animation, l'intelligence artificielle, le design/graphisme, les jeux vidéo et bien d'autres domaines.", 
+                bio_p1: "Je m'appelle VainWoold et j'ai 17 ans. Je rêve de devenir réalisateur. Je suis passionné par le cinéma, le marketing, l'animation, l'intelligence artificielle, le design/graphisme, les jeux vidéo et bien d'autres domaines.", 
                 bio_p2: "J'ai commencé l'animation 3D en 2025 et je continue d'apprendre chaque jour. Je pratique également le stop motion, la photographie, le graphisme et bien d'autres disciplines. Je suis aussi community manager. Ambitieux et déterminé, je vais toujours au bout de mes projets.",
                 port_title: "Graphiste & Webdesigner",
-                port_desc: "Artiste freelance passionné, je me spécialise dans la création de miniatures percutantes, d'affiches, de logos uniques et de web design moderne. J'allie qualité professionnelle et tarifs accessibles pour donner vie à vos projets.",
+                port_desc: "Artiste freelance passionné, je me spécialise dans la création de miniatures percutantes, d'affiches, de logos uniques et de web design moderne.",
                 port_btn: "Découvrir mes travaux",
                 port_click: "Cliquez pour découvrir plus",
                 timeline_title: "Mon Parcours", date_1: "31 Déc. 2024", event_1: "Création YouTube", date_2: "12 Avr. 2025", event_2: "Lancement Lego Rebuild", date_3: "31 Déc.", event_3: "1er Anniversaire",
                 skills_title: "Compétences", 
                 shop_badge: "Bientôt disponible", 
                 shop_main_title: "Boutique Officielle", 
-                shop_desc: "Vêtements premium pour créateurs. La qualité d'abord.", 
+                shop_desc: "The VainWoold Shop", 
                 shop_illustrative: "* Les articles et prix affichés sont simplement illustratifs.",
                 shop_cta: "Entrer dans le shop",
-                footer_tagline: "Codé avec HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Réseaux", footer_contact: "Contact", footer_credit: "Fait avec ❤️ en France 🇫🇷", footer_mod: "Modifié le : 7 Janvier 2026"
+                footer_tagline: "Codé avec HTML, Tailwind & JS.", footer_site: "Site", footer_socials: "Réseaux", footer_contact: "Contact", footer_credit: "Fait avec ❤️ en France 🇫🇷", footer_mod: "Modifié le : 18 Février 2026"
             }
         };
 
@@ -712,4 +712,5 @@
         document.head.insertAdjacentHTML("beforeend", `<style>[data-key] { transition: opacity 0.2s ease; }</style>`);
     </script>
 </body>
+
 </html>
